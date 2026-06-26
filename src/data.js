@@ -48,7 +48,7 @@ export const templates = [
         productId: 'porte-cle',
         name: 'Porte-Clé Initiales',
         category: 'Cadeau',
-        imageUrl: 'https://via.placeholder.com/400x300.png/f0f0f0?text=Porte-Clé',
+        imageUrl: 'https://via.placeholder.com/400x300.png/f0f0f0?text=Porte-Cle',
         layout: { primaryColor: 'oklch(0.55 0.2 250 / 0.5)' },
         fields: [
             { key: 'initials', type: 'text', label: 'Initiales', defaultValue: 'AB' },
@@ -79,8 +79,8 @@ export const templates = [
     },
 ];
 
-export const getProductById = (id) => products.find(p => p.id === id);
-export const getTemplateById = (id) => templates.find(t => t.id === id);
+export const getProductById = (id) => products.find(product => product.id === id);
+export const getTemplateById = (id) => templates.find(template => template.id === id);
 export const getProductByTemplateId = (templateId) => {
     const template = getTemplateById(templateId);
     return template ? getProductById(template.productId) : null;

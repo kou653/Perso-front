@@ -7,14 +7,14 @@ const products = [
   { id: 't-shirt', name: 'T-Shirt', imageUrl: 'https://via.placeholder.com/300x300.png/f0f0f0?text=T-Shirt' },
   { id: 'sac', name: 'Sac', imageUrl: 'https://via.placeholder.com/300x300.png/f0f0f0?text=Sac' },
   { id: 'stylo', name: 'Stylo', imageUrl: 'https://via.placeholder.com/300x300.png/f0f0f0?text=Stylo' },
-  { id: 'porte-cle', name: 'Porte-clé', imageUrl: 'https://via.placeholder.com/300x300.png/f0f0f0?text=Porte-Clé' },
+  { id: 'porte-cle', name: 'Porte-clé', imageUrl: 'https://via.placeholder.com/300x300.png/f0f0f0?text=Porte-Cle' },
 ];
 
 const features = [
     { icon: 'sparkles', title: 'IA Créative', description: 'Générez des designs uniques en quelques secondes.' },
     { icon: 'palette', title: '100% Personnalisable', description: 'Ajustez chaque détail à votre goût.' },
     { icon: 'truck', title: 'Livraison Rapide', description: 'Recevez votre commande en 3-5 jours ouvrés.' },
-    { icon: 'message-circle', title: 'Support Dédié', description: 'Notre équipe est là pour vous aider.' },
+    { icon: 'message-circle', title: 'Support Dédié', description: "Notre équipe est là pour vous aider." },
 ];
 
 // Icônes SVG pour simuler les icônes Lucide

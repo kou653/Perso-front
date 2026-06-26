@@ -1,13 +1,17 @@
-import { useState, useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { products, templates } from './data';
-import { products, templates } from '../lib/data';
 
-const productCategories = [{ id: 'all', name: 'Tous les produits' }, ...products.map(p => ({ id: p.id, name: p.name }))];
-const templateCategories = ['Tous', ...new Set(templates.map(t => t.category))];
+const productCategories = [
+    { id: 'all', name: 'Tous les produits' },
+    ...products.map(product => ({ id: product.id, name: product.name })),
+];
+
+const templateCategories = ['Tous', ...new Set(templates.map(template => template.category))];
 
 function TemplateCard({ template }) {
-    const product = products.find(p => p.id === template.productId);
+    const product = products.find(productItem => productItem.id === template.productId);
+
     return (
         <div className="template-card">
             <div className="template-image-container">
@@ -32,11 +36,6 @@ function TemplateCard({ template }) {
 }
 
 export function ProduitsPage() {
-  return (
-    <div>
-      <h1>Catalogue de Modèles</h1>
-    </div>
-  );
     const [productFilter, setProductFilter] = useState('all');
     const [categoryFilter, setCategoryFilter] = useState('Tous');
 
@@ -61,14 +60,14 @@ export function ProduitsPage() {
             <div className="filters">
                 <div className="filter-group">
                     <label htmlFor="product-filter">Filtrer par produit :</label>
-                    <select id="product-filter" value={productFilter} onChange={(e) => setProductFilter(e.target.value)}>
-                        {productCategories.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
+                    <select id="product-filter" value={productFilter} onChange={(event) => setProductFilter(event.target.value)}>
+                        {productCategories.map(product => <option key={product.id} value={product.id}>{product.name}</option>)}
                     </select>
                 </div>
                 <div className="filter-group">
                     <label htmlFor="category-filter">Filtrer par catégorie :</label>
-                    <select id="category-filter" value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
-                        {templateCategories.map(c => <option key={c} value={c}>{c}</option>)}
+                    <select id="category-filter" value={categoryFilter} onChange={(event) => setCategoryFilter(event.target.value)}>
+                        {templateCategories.map(category => <option key={category} value={category}>{category}</option>)}
                     </select>
                 </div>
             </div>
