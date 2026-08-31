@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { getProductById, getTemplateById } from './data';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Sparkles, Loader2, Check, ArrowLeft, ArrowRight, X } from "lucide-react";
 
 function buildInitialValues(template) {
   return Object.fromEntries(
@@ -18,7 +24,7 @@ function FieldInput({ field, value, onChange }) {
 
   if (field.type === 'image') {
     return (
-      <input
+      <Input
         {...commonProps}
         type="url"
         placeholder="https://exemple.com/image.png"
@@ -27,11 +33,11 @@ function FieldInput({ field, value, onChange }) {
   }
 
   if (field.type === 'color') {
-    return <input {...commonProps} type="color" />;
+    return <Input {...commonProps} type="color" className="h-12 cursor-pointer p-1" />;
   }
 
   return (
-    <input
+    <Input
       {...commonProps}
       type="text"
       placeholder={field.defaultValue || field.label}
@@ -41,26 +47,40 @@ function FieldInput({ field, value, onChange }) {
 
 function TemplatePreview({ product, template, values }) {
   return (
-    <aside className="customizer-preview">
-      <div className="preview-visual">
-        <img src={template.imageUrl} alt={`Aperçu ${template.name}`} />
-        <div className="preview-overlay" style={{ '--overlay-color': template.layout.primaryColor }}>
-          {template.fields.map(field => (
-            <p key={field.key}>
-              <strong>{field.label}</strong>
-              <span>{values[field.key] || '...'}</span>
-            </p>
-          ))}
+    <Card className="sticky top-24 border-border/50">
+      <CardHeader>
+        <div className="flex items-center justify-between">
+          <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-1 text-xs font-medium text-primary">
+            {template.category}
+          </span>
+          <span className="font-bold text-primary">{product.price.toFixed(2)} €</span>
         </div>
-      </div>
-
-      <div className="preview-summary">
-        <span className="badge-inline">{template.category}</span>
-        <h2>{template.name}</h2>
-        <p>{product.description}</p>
-        <strong>{product.price.toFixed(2)} €</strong>
-      </div>
-    </aside>
+        <CardTitle className="mt-2 text-xl">{template.name}</CardTitle>
+        <p className="text-sm text-muted-foreground">{product.description}</p>
+      </CardHeader>
+      <CardContent>
+        <div className="relative aspect-square overflow-hidden rounded-lg">
+          <img 
+            src={template.imageUrl} 
+            alt={`Aperçu ${template.name}`}
+            className="h-full w-full object-cover" 
+          />
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 p-4 text-white">
+            <div 
+              className="rounded-lg p-4 text-center backdrop-blur-sm"
+              style={{ backgroundColor: template.layout?.primaryColor || 'rgba(0,0,0,0.5)' }}
+            >
+              {template.fields.map(field => (
+                <div key={field.key} className="mb-2 last:mb-0">
+                  <span className="text-xs uppercase opacity-80 block">{field.label}</span>
+                  <span className="font-bold">{values[field.key] || '...'}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
 
@@ -82,11 +102,13 @@ export function PersonnaliserProduitPage() {
 
   if (!product || !template || template.productId !== productId) {
     return (
-      <section className="customizer-page">
-        <h1>Modèle introuvable</h1>
-        <p>Le produit ou le modèle demandé n'existe pas dans le catalogue actuel.</p>
-        <Link to="/produits" className="btn btn-primary">Retour aux modèles</Link>
-      </section>
+      <div className="py-24 text-center">
+        <h1 className="text-2xl font-bold text-foreground">Modèle introuvable</h1>
+        <p className="mt-4 text-muted-foreground mb-8">Le produit ou le modèle demandé n'existe pas dans le catalogue actuel.</p>
+        <Button asChild>
+          <Link to="/produits">Retour aux modèles</Link>
+        </Button>
+      </div>
     );
   }
 
@@ -112,7 +134,6 @@ export function PersonnaliserProduitPage() {
         customization_data: values,
       };
 
-      // Add AI refinement prompt if provided
       if (aiPrompt.trim()) {
         payload.ai_refinement_prompt = aiPrompt;
       }
@@ -133,18 +154,14 @@ export function PersonnaliserProduitPage() {
 
       const result = await response.json();
       
-      // If AI suggestions were made, show them
       if (result.ai_suggestions && Object.keys(result.ai_suggestions).length > 0) {
         setAiSuggestions(result.ai_suggestions);
         setShowSuggestions(true);
       }
 
-      // Save created project
       setCreatedProject(result.data);
       
-      // If no AI or user wants to proceed
       if (!result.ai_suggestions || Object.keys(result.ai_suggestions).length === 0) {
-        // Redirect to order or success page after 1.5s
         setTimeout(() => {
           window.location.href = `/commande?projectId=${result.data.id}`;
         }, 1500);
@@ -158,7 +175,6 @@ export function PersonnaliserProduitPage() {
   };
 
   const handleAcceptSuggestions = () => {
-    // Suggestions already merged on backend, just proceed
     if (createdProject) {
       window.location.href = `/commande?projectId=${createdProject.id}`;
     }
@@ -167,150 +183,164 @@ export function PersonnaliserProduitPage() {
   const handleRejectSuggestions = () => {
     setShowSuggestions(false);
     setAiSuggestions(null);
-    // User can go back and modify manually
   };
 
   return (
-    <section className="customizer-page">
-      <div className="customizer-header">
-        <Link to="/produits" className="back-link">← Retour aux modèles</Link>
-        <h1>Personnaliser {product.name}</h1>
-        <p>Remplacez les valeurs du modèle, vérifiez l'aperçu, puis créez votre projet.</p>
+    <div className="py-16 sm:py-24">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mb-8">
+          <Link to="/produits" className="inline-flex items-center text-sm text-muted-foreground hover:text-primary transition-colors">
+            <ArrowLeft className="mr-2 h-4 w-4" /> Retour aux modèles
+          </Link>
+          <h1 className="mt-6 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            Personnaliser {product.name}
+          </h1>
+          <p className="mt-4 text-lg text-muted-foreground">
+            Remplacez les valeurs du modèle, vérifiez l'aperçu, puis créez votre projet.
+          </p>
+        </div>
+
+        {error && (
+          <div className="mb-8 rounded-md bg-destructive/10 p-4 text-sm text-destructive flex justify-between items-center">
+            <span><strong>Erreur :</strong> {error}</span>
+            <button onClick={() => setError(null)} className="font-bold">×</button>
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <div className="lg:col-span-7">
+            <Card className="border-border/50">
+              <CardContent className="pt-6">
+                <form onSubmit={handleSubmit} className="space-y-8">
+                  <div className="space-y-4">
+                    <h3 className="font-semibold text-lg border-b pb-2">Informations client</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="customer-name">Nom</Label>
+                        <Input
+                          id="customer-name"
+                          type="text"
+                          value={customerName}
+                          onChange={event => setCustomerName(event.target.value)}
+                          placeholder="Votre nom"
+                          disabled={isLoading}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="customer-email">Email</Label>
+                        <Input
+                          id="customer-email"
+                          type="email"
+                          value={customerEmail}
+                          onChange={event => setCustomerEmail(event.target.value)}
+                          placeholder="vous@exemple.com"
+                          disabled={isLoading}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h3 className="font-semibold text-lg border-b pb-2">Champs du modèle</h3>
+                    {template.fields.map(field => (
+                      <div className="space-y-2" key={field.key}>
+                        <Label htmlFor={field.key}>{field.label}</Label>
+                        <FieldInput 
+                          field={field} 
+                          value={values[field.key] ?? ''} 
+                          onChange={updateValue}
+                        />
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="space-y-4">
+                    <h3 className="font-semibold text-lg border-b pb-2 flex items-center justify-between">
+                      Assistance IA
+                      {aiPrompt && <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-1 text-xs font-medium text-primary">Actif</span>}
+                    </h3>
+                    <div className="space-y-2">
+                      <Label htmlFor="ai-prompt">Prompt IA optionnel</Label>
+                      <Textarea
+                        id="ai-prompt"
+                        value={aiPrompt}
+                        onChange={event => setAiPrompt(event.target.value)}
+                        rows={3}
+                        placeholder={`Exemple : crée un style moderne pour ${product.name}, avec une ambiance premium.`}
+                        disabled={isLoading}
+                      />
+                      <p className="text-sm text-muted-foreground">
+                        💡 Laissez vide pour garder vos valeurs, ou décrivez comment l'IA peut affiner votre design.
+                      </p>
+                    </div>
+                  </div>
+
+                  <Button 
+                    type="submit" 
+                    className="w-full" 
+                    disabled={isLoading || (createdProject && !showSuggestions)}
+                  >
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Création en cours...
+                        {aiPrompt && <span className="ml-1 text-xs opacity-75">(L'IA affine...)</span>}
+                      </>
+                    ) : (
+                      'Créer le projet'
+                    )}
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+
+            {showSuggestions && aiSuggestions && (
+              <Card className="mt-8 border-primary/50 shadow-lg relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-1 h-full bg-primary"></div>
+                <CardHeader>
+                  <CardTitle className="flex items-center text-primary">
+                    <Sparkles className="mr-2 h-5 w-5" /> Suggestions IA appliquées
+                  </CardTitle>
+                  <p className="text-sm text-muted-foreground">L'IA a affiné votre design avec les modifications suivantes :</p>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3 mb-6 bg-muted/30 p-4 rounded-lg">
+                    {Object.entries(aiSuggestions).map(([key, value]) => (
+                      <div key={key} className="flex flex-col sm:flex-row sm:items-start sm:gap-4 border-b border-border/50 pb-2 last:border-0 last:pb-0">
+                        <span className="font-medium text-sm w-32 shrink-0">{key}:</span>
+                        <span className="text-sm text-muted-foreground break-all">
+                          {typeof value === 'object' ? JSON.stringify(value) : String(value)}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <Button onClick={handleAcceptSuggestions} className="flex-1">
+                      <Check className="mr-2 h-4 w-4" /> Accepter et commander
+                    </Button>
+                    <Button onClick={handleRejectSuggestions} variant="outline" className="flex-1">
+                      <X className="mr-2 h-4 w-4" /> Rejeter et modifier
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {createdProject && !showSuggestions && (
+              <div className="mt-8 rounded-lg bg-green-500/10 p-6 text-center text-green-600 dark:text-green-400">
+                <Check className="mx-auto h-8 w-8 mb-2" />
+                <h2 className="text-xl font-bold mb-1">Projet créé avec succès !</h2>
+                <p className="text-sm">Redirection vers la commande...</p>
+              </div>
+            )}
+          </div>
+
+          <div className="lg:col-span-5">
+            <TemplatePreview product={product} template={template} values={values} />
+          </div>
+        </div>
       </div>
-
-      {error && (
-        <div className="alert alert-error" role="alert">
-          <strong>Erreur :</strong> {error}
-          <button onClick={() => setError(null)} className="close-btn">×</button>
-        </div>
-      )}
-
-      {isLoading && (
-        <div className="loading-overlay">
-          <div className="spinner">
-            <div className="spinner-circle"></div>
-            <p>Création de votre projet en cours...</p>
-            {aiPrompt && <p className="text-sm">L'IA affine votre design...</p>}
-          </div>
-        </div>
-      )}
-
-      <div className="customizer-layout">
-        <form className="customizer-form" onSubmit={handleSubmit} disabled={isLoading}>
-          <fieldset>
-            <legend>Informations client</legend>
-            <div className="form-grid">
-              <div className="form-group">
-                <label htmlFor="customer-name">Nom</label>
-                <input
-                  id="customer-name"
-                  type="text"
-                  value={customerName}
-                  onChange={event => setCustomerName(event.target.value)}
-                  placeholder="Votre nom"
-                  disabled={isLoading}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="customer-email">Email</label>
-                <input
-                  id="customer-email"
-                  type="email"
-                  value={customerEmail}
-                  onChange={event => setCustomerEmail(event.target.value)}
-                  placeholder="vous@exemple.com"
-                  disabled={isLoading}
-                />
-              </div>
-            </div>
-          </fieldset>
-
-          <fieldset>
-            <legend>Champs du modèle</legend>
-            {template.fields.map(field => (
-              <div className="form-group" key={field.key}>
-                <label htmlFor={field.key}>{field.label}</label>
-                <FieldInput 
-                  field={field} 
-                  value={values[field.key] ?? ''} 
-                  onChange={updateValue}
-                />
-              </div>
-            ))}
-          </fieldset>
-
-          <fieldset>
-            <legend>Assistance IA</legend>
-            <div className="form-group">
-              <label htmlFor="ai-prompt">
-                Prompt IA optionnel
-                {aiPrompt && <span className="badge-inline">Actif</span>}
-              </label>
-              <textarea
-                id="ai-prompt"
-                value={aiPrompt}
-                onChange={event => setAiPrompt(event.target.value)}
-                rows="5"
-                placeholder={`Exemple : crée un style moderne pour ${product.name}, avec une ambiance premium.`}
-                disabled={isLoading}
-              />
-              <p className="form-help">
-                💡 Laissez vide pour garder vos valeurs, ou décrivez comment vous voulez que l'IA affine votre design.
-              </p>
-            </div>
-          </fieldset>
-
-          <button 
-            type="submit" 
-            className="btn btn-primary" 
-            disabled={isLoading}
-          >
-            {isLoading ? 'Création en cours...' : 'Créer le projet'}
-          </button>
-        </form>
-
-        <TemplatePreview product={product} template={template} values={values} />
-      </div>
-
-      {showSuggestions && aiSuggestions && (
-        <div className="suggestions-panel">
-          <h2>Suggestions IA appliquées</h2>
-          <p>L'IA a affiné votre design avec les modifications suivantes :</p>
-          
-          <div className="suggestions-list">
-            {Object.entries(aiSuggestions).map(([key, value]) => (
-              <div key={key} className="suggestion-item">
-                <strong>{key}:</strong>
-                <p className="suggestion-value">
-                  {typeof value === 'object' ? JSON.stringify(value) : String(value)}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <div className="suggestions-actions">
-            <button 
-              onClick={handleAcceptSuggestions} 
-              className="btn btn-primary"
-            >
-              ✓ Accepter et commander
-            </button>
-            <button 
-              onClick={handleRejectSuggestions} 
-              className="btn btn-secondary"
-            >
-              ✗ Rejeter et modifier
-            </button>
-          </div>
-        </div>
-      )}
-
-      {createdProject && !showSuggestions && (
-        <div className="success-message">
-          <h2>✓ Projet créé avec succès !</h2>
-          <p>Redirection vers la commande...</p>
-        </div>
-      )}
-    </section>
+    </div>
   );
 }
