@@ -16,7 +16,7 @@ export function Footer() {
               Accueil
             </Link>
             <Link to="/produits" className="text-sm text-muted-foreground hover:text-primary">
-              Produits
+              Modèles
             </Link>
             <Link to="/personnaliser" className="text-sm text-muted-foreground hover:text-primary">
               Personnaliser

@@ -104,7 +104,7 @@ export function PersonnaliserProduitPage() {
     return (
       <div className="py-24 text-center">
         <h1 className="text-2xl font-bold text-foreground">Modèle introuvable</h1>
-        <p className="mt-4 text-muted-foreground mb-8">Le produit ou le modèle demandé n'existe pas dans le catalogue actuel.</p>
+        <p className="mt-4 text-muted-foreground mb-8">Le modèle de mug demandé n'existe pas dans le catalogue actuel.</p>
         <Button asChild>
           <Link to="/produits">Retour aux modèles</Link>
         </Button>

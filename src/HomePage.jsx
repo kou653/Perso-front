@@ -3,43 +3,13 @@ import { ArrowRight, Sparkles, Palette, Truck, MessageSquare } from "lucide-reac
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
-const products = [
-  {
-    id: "mug",
-    name: "Mug",
-    description: "Mug en céramique de qualité",
-    image: "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400&h=400&fit=crop",
-    price: "12,99 €",
-  },
-  {
-    id: "tshirt",
-    name: "T-Shirt",
-    description: "T-shirt 100% coton bio",
-    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop",
-    price: "24,99 €",
-  },
-  {
-    id: "sac",
-    name: "Sac",
-    description: "Sac en toile résistant",
-    image: "https://images.unsplash.com/photo-1544816155-12df9643f363?w=400&h=400&fit=crop",
-    price: "19,99 €",
-  },
-  {
-    id: "stylo",
-    name: "Stylo",
-    description: "Stylo à bille personnalisable",
-    image: "https://images.unsplash.com/photo-1585336261022-680e295ce3fe?w=400&h=400&fit=crop",
-    price: "4,99 €",
-  },
-  {
-    id: "porte-cle",
-    name: "Porte-clé",
-    description: "Porte-clé en métal gravé",
-    image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=400&h=400&fit=crop",
-    price: "7,99 €",
-  },
-];
+const mug = {
+  id: "mug",
+  name: "Mug",
+  description: "Mug en céramique de qualité, 330ml",
+  image: "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400&h=400&fit=crop",
+  price: "12,99 €",
+};
 
 const features = [
   {
@@ -50,7 +20,7 @@ const features = [
   {
     icon: Palette,
     title: "100% Personnalisable",
-    description: "Modifiez chaque détail pour créer un produit qui vous ressemble.",
+    description: "Modifiez chaque détail pour créer un mug qui vous ressemble.",
   },
   {
     icon: Truck,
@@ -72,10 +42,10 @@ export function HomePage() {
         <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:flex lg:items-center lg:gap-x-10 lg:px-8 lg:py-40">
           <div className="mx-auto max-w-2xl lg:mx-0 lg:flex-auto">
             <h1 className="text-balance text-4xl font-bold tracking-tight text-foreground sm:text-6xl">
-              Créez des designs uniques avec l'IA
+              Créez votre mug unique avec l'IA
             </h1>
             <p className="mt-6 text-pretty text-lg leading-relaxed text-muted-foreground">
-              Personnalisez vos mugs, t-shirts, sacs et plus encore grâce à notre intelligence artificielle. 
+              Personnalisez votre mug en céramique grâce à notre intelligence artificielle.
               Décrivez votre vision et laissez la magie opérer.
             </p>
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
@@ -86,7 +56,7 @@ export function HomePage() {
                 </Link>
               </Button>
               <Button variant="outline" size="lg" asChild>
-                <Link to="/produits">Voir les produits</Link>
+                <Link to="/produits">Voir les modèles</Link>
               </Button>
             </div>
           </div>
@@ -94,8 +64,8 @@ export function HomePage() {
             <div className="relative mx-auto w-[22rem] max-w-full">
               <div className="absolute -inset-4 rounded-2xl bg-gradient-to-r from-primary/20 to-accent/20 blur-2xl" />
               <img
-                src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600&h=600&fit=crop"
-                alt="Produits personnalisés"
+                src="https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=600&h=600&fit=crop"
+                alt="Mug personnalisé"
                 className="relative rounded-2xl shadow-2xl w-full h-auto object-cover"
               />
             </div>
@@ -135,36 +105,34 @@ export function HomePage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-balance text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              Nos produits personnalisables
+              Notre mug personnalisable
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              Choisissez votre support et laissez libre cours à votre créativité.
+              Un mug en céramique premium, entièrement personnalisable à votre image.
             </p>
           </div>
-          <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-5">
-            {products.map((product) => (
-              <Link key={product.id} to={`/personnaliser?produit=${product.id}`}>
-                <Card className="group cursor-pointer overflow-hidden border-border/50 transition-all hover:border-primary/50 hover:shadow-lg h-full flex flex-col">
-                  <div className="aspect-square overflow-hidden">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="h-full w-full object-cover transition-transform group-hover:scale-105"
-                    />
-                  </div>
-                  <CardContent className="p-4 flex-1 flex flex-col">
-                    <h3 className="font-semibold text-foreground">{product.name}</h3>
-                    <p className="mt-1 text-sm text-muted-foreground flex-1">{product.description}</p>
-                    <p className="mt-2 text-sm font-medium text-primary">À partir de {product.price}</p>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
+          <div className="mx-auto mt-16 max-w-sm">
+            <Link to="/personnaliser">
+              <Card className="group cursor-pointer overflow-hidden border-border/50 transition-all hover:border-primary/50 hover:shadow-lg h-full flex flex-col">
+                <div className="aspect-square overflow-hidden">
+                  <img
+                    src={mug.image}
+                    alt={mug.name}
+                    className="h-full w-full object-cover transition-transform group-hover:scale-105"
+                  />
+                </div>
+                <CardContent className="p-4 flex-1 flex flex-col">
+                  <h3 className="font-semibold text-foreground">{mug.name}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground flex-1">{mug.description}</p>
+                  <p className="mt-2 text-sm font-medium text-primary">À partir de {mug.price}</p>
+                </CardContent>
+              </Card>
+            </Link>
           </div>
           <div className="mt-12 text-center">
             <Button variant="outline" size="lg" asChild>
               <Link to="/produits">
-                Voir tous les produits
+                Voir les modèles de mugs
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
@@ -177,10 +145,10 @@ export function HomePage() {
         <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-balance text-3xl font-bold tracking-tight text-primary-foreground sm:text-4xl">
-              Prêt à créer votre design unique ?
+              Prêt à créer votre mug unique ?
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-primary-foreground/80">
-              Décrivez simplement votre idée et notre IA génère un design personnalisé en quelques secondes.
+              Décrivez simplement votre idée et notre IA génère un design personnalisé pour votre mug en quelques secondes.
             </p>
             <div className="mt-10">
               <Button size="lg" variant="secondary" asChild>

@@ -1,46 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { products } from './data';
+import { getProductById } from './data';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Check, ChevronRight, Loader2, RefreshCw, ShoppingCart, Sparkles, Send } from "lucide-react";
-
-function Step1SelectProduct({ onSelect }) {
-  return (
-    <div>
-      <div className="mx-auto max-w-2xl text-center">
-        <h1 className="text-3xl font-bold text-foreground">
-          Choisissez votre produit
-        </h1>
-        <p className="mt-4 text-muted-foreground">
-          Sélectionnez le produit que vous souhaitez personnaliser.
-        </p>
-      </div>
-      
-      <div className="mx-auto mt-12 grid max-w-4xl grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
-        {products.map(product => (
-          <Card
-            key={product.id}
-            className="cursor-pointer overflow-hidden transition-all hover:shadow-lg border-border/50"
-            onClick={() => onSelect(product)}
-          >
-            <div className="aspect-square bg-muted flex items-center justify-center text-4xl">
-              📦
-            </div>
-            <CardContent className="p-3 text-center">
-              <h3 className="font-semibold text-foreground">{product.name}</h3>
-              <p className="text-sm text-primary">{product.price.toFixed(2)} €</p>
-              <p className="mt-1 text-xs text-muted-foreground line-clamp-2">{product.description}</p>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 function Step2DescribeDesign({ product, onSubmit, onBack }) {
   const [description, setDescription] = useState('');
@@ -89,10 +55,10 @@ function Step2DescribeDesign({ product, onSubmit, onBack }) {
     <div>
       <div className="mx-auto max-w-2xl text-center">
         <h1 className="text-3xl font-bold text-foreground">
-          Décrivez votre design
+          Décrivez votre mug
         </h1>
         <p className="mt-4 text-muted-foreground">
-          Décrivez le design que l'IA doit créer pour votre {product.name.toLowerCase()}.
+          Décrivez le design que l'IA doit créer pour votre mug.
         </p>
       </div>
 
@@ -118,7 +84,7 @@ function Step2DescribeDesign({ product, onSubmit, onBack }) {
                   id="description"
                   value={description}
                   onChange={e => setDescription(e.target.value)}
-                  placeholder="Exemple: T-shirt noir avec un logo blanc minimaliste, style moderne et épuré."
+                  placeholder="Exemple: Mug blanc avec un logo bleu minimaliste, style moderne et épuré."
                   rows={6}
                   disabled={isLoading}
                 />
@@ -128,9 +94,13 @@ function Step2DescribeDesign({ product, onSubmit, onBack }) {
               </div>
 
               <div className="flex justify-between pt-4">
-                <Button type="button" variant="outline" onClick={onBack} disabled={isLoading}>
-                  ← Retour
-                </Button>
+                {onBack ? (
+                  <Button type="button" variant="outline" onClick={onBack} disabled={isLoading}>
+                    ← Retour
+                  </Button>
+                ) : (
+                  <div />
+                )}
                 <Button type="submit" disabled={isLoading}>
                   {isLoading ? (
                     <>
@@ -270,7 +240,7 @@ function Step4FillFields({ product, template, onSubmit, onBack }) {
       <div className="mx-auto max-w-2xl text-center">
         <h1 className="text-3xl font-bold text-foreground">Remplir les champs</h1>
         <p className="mt-4 text-muted-foreground">
-          Personnalisez les valeurs pour votre {product.name.toLowerCase()}.
+          Personnalisez les valeurs pour votre mug.
         </p>
       </div>
 
@@ -417,15 +387,11 @@ function Step5Success({ project }) {
 }
 
 export function PersonnaliserPage() {
-  const [step, setStep] = useState(1);
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const mugProduct = getProductById('mug');
+  const [step, setStep] = useState(2);
+  const [selectedProduct] = useState(mugProduct);
   const [generatedTemplate, setGeneratedTemplate] = useState(null);
   const [createdProject, setCreatedProject] = useState(null);
-
-  const handleProductSelect = product => {
-    setSelectedProduct(product);
-    setStep(2);
-  };
 
   const handleDescribeDesign = template => {
     setGeneratedTemplate(template);
@@ -437,7 +403,7 @@ export function PersonnaliserPage() {
     setStep(5);
   };
 
-  const stepLabels = ["Produit", "Modèle (IA)", "Vérification", "Champs", "Résultat"];
+  const stepLabels = ["Modèle (IA)", "Vérification", "Champs", "Résultat"];
 
   return (
     <div className="py-16 sm:py-24">
@@ -445,7 +411,7 @@ export function PersonnaliserPage() {
         <div className="mx-auto mb-12 max-w-2xl">
           <div className="flex items-center justify-center gap-2 sm:gap-4 flex-wrap">
             {stepLabels.map((label, index) => {
-              const currentStep = index + 1;
+              const currentStep = index + 2;
               const isCompleted = step > currentStep;
               const isCurrent = step === currentStep;
 
@@ -476,15 +442,11 @@ export function PersonnaliserPage() {
           </div>
         </div>
 
-        {step === 1 && (
-          <Step1SelectProduct onSelect={handleProductSelect} />
-        )}
-
         {step === 2 && selectedProduct && (
           <Step2DescribeDesign
             product={selectedProduct}
             onSubmit={handleDescribeDesign}
-            onBack={() => setStep(1)}
+            onBack={null}
           />
         )}
 

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 const navItems = [
   { name: "Accueil", href: "/" },
-  { name: "Produits", href: "/produits" },
+  { name: "Modèles", href: "/produits" },
   { name: "Personnaliser", href: "/personnaliser" },
   { name: "Contact", href: "/contact" },
 ];
@@ -36,7 +36,7 @@ export function Navbar() {
 
         <div className="hidden md:block">
           <Button asChild>
-            <Link to="/personnaliser">Créer mon design</Link>
+            <Link to="/personnaliser">Créer mon mug</Link>
           </Button>
         </div>
 
@@ -69,7 +69,7 @@ export function Navbar() {
               </Link>
             ))}
             <Button asChild className="mt-4 w-full">
-              <Link to="/personnaliser">Créer mon design</Link>
+              <Link to="/personnaliser">Créer mon mug</Link>
             </Button>
           </div>
         </div>
