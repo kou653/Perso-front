@@ -213,8 +213,17 @@ function Step4FillFields({ product, template, onSubmit, onBack }) {
       return;
     }
 
-    if (!customerPhone.trim()) {
+    const requiredDigits = selectedCountry.digitsCount || 9;
+    const cleanPhone = customerPhone.replace(/\D/g, '');
+
+    if (!cleanPhone) {
       setError('Veuillez renseigner votre numéro de téléphone.');
+      document.getElementById('cust-phone')?.focus();
+      return;
+    }
+
+    if (cleanPhone.length !== requiredDigits) {
+      setError(`Le numéro de téléphone pour ${selectedCountry.name} (${selectedCountry.dialCode}) doit comporter exactement ${requiredDigits} chiffres (actuellement ${cleanPhone.length}).`);
       document.getElementById('cust-phone')?.focus();
       return;
     }
@@ -323,9 +332,14 @@ function Step4FillFields({ product, template, onSubmit, onBack }) {
 
                   {/* Numéro de téléphone (même largeur qu'un champ unique) */}
                   <div className="space-y-2 sm:col-span-1">
-                    <Label htmlFor="cust-phone" className="flex items-center gap-1.5">
-                      <Phone className="h-3.5 w-3.5 text-primary" />
-                      Numéro de téléphone <span className="text-destructive font-bold">*</span>
+                    <Label htmlFor="cust-phone" className="flex items-center justify-between">
+                      <span className="flex items-center gap-1.5">
+                        <Phone className="h-3.5 w-3.5 text-primary" />
+                        Numéro de téléphone <span className="text-destructive font-bold">*</span>
+                      </span>
+                      <span className="text-[10px] text-muted-foreground font-normal">
+                        ({selectedCountry.digitsCount} chiffres)
+                      </span>
                     </Label>
                     
                     {/* Champ unique compact : uniquement l'indicateur (+225) et le numéro */}
@@ -347,21 +361,24 @@ function Step4FillFields({ product, template, onSubmit, onBack }) {
                         >
                           {COUNTRIES.map((c) => (
                             <option key={c.code} value={c.code}>
-                              {c.flag} {c.dialCode} - {c.name}
+                              {c.flag} {c.dialCode} - {c.name} ({c.digitsCount} chiffres)
                             </option>
                           ))}
                         </select>
                       </div>
 
-                      {/* Saisie directe du numéro */}
+                      {/* Saisie directe du numéro (chiffres uniquement et longueur exacte) */}
                       <div className="flex-1 flex items-center">
                         <input
                           id="cust-phone"
                           type="tel"
+                          inputMode="numeric"
+                          pattern="[0-9]*"
+                          maxLength={selectedCountry.digitsCount}
                           required
-                          placeholder={selectedCountry.placeholder || '6 12 34 56 78'}
+                          placeholder={selectedCountry.placeholder ? selectedCountry.placeholder.replace(/\s/g, '') : '012345678'}
                           value={customerPhone}
-                          onChange={(e) => setCustomerPhone(e.target.value)}
+                          onChange={(e) => setCustomerPhone(e.target.value.replace(/\D/g, '').slice(0, selectedCountry.digitsCount))}
                           disabled={isLoading}
                           className="w-full h-10 px-2.5 bg-transparent text-xs sm:text-sm font-medium text-foreground placeholder:text-muted-foreground/60 focus:outline-none"
                         />

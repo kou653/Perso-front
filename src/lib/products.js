@@ -19,7 +19,7 @@ export const products = {
         id: "mug-belle-mere",
         name: "Belle-Mère & Famille",
         description: "Tasse avec poignée en cœur, collage de 2 photos polaroid et message d'affection.",
-        category: "Cadeau & Famille",
+        category: "Famille & Cadeau",
         imageUrl: "/model/mug-belle-mere.jpg",
         aiAnalysis: {
           summary: "Modèle composé d'un en-tête affectueux, de deux photos polaroid vintage et d'un texte de remerciement au bas.",
@@ -231,7 +231,7 @@ export const products = {
         id: "mug-magique-maman",
         name: "Best Mom & Poème",
         description: "Face avant avec photo et mention 'Best Mom Ever', face arrière avec un poème émouvant.",
-        category: "Famille & Maman",
+        category: "Famille & Cadeau",
         imageUrl: "/model/mug-magique-maman.png",
         aiAnalysis: {
           summary: "Design bi-face avec titre 'Best Mom Ever', photo de famille centrale et poème de gratitude au dos.",
@@ -398,7 +398,7 @@ export const products = {
         id: "mug-maman-damour",
         name: "Maman d'Amour",
         description: "Mug avec intérieur rouge. Face 1 : 'Maman D'AMOUR', Face 2 : Prénoms des enfants.",
-        category: "Famille & Maman",
+        category: "Famille & Cadeau",
         imageUrl: "/model/mug-maman-damour.jpg",
         aiAnalysis: {
           summary: "Mug bicolore avec inscription 'Maman D'AMOUR' sur une face et liste des prénoms des enfants sur l'autre face.",
@@ -467,7 +467,7 @@ export const products = {
         id: "mug-ourson-amour",
         name: "Tu es l'amour de ma vie",
         description: "Mug intérieur rouge avec la déclaration d'amour et le prénom personnalisé.",
-        category: "Amour & Saint-Valentin",
+        category: "Amour & Couple",
         imageUrl: "/model/mug-ourson-amour.jpg",
         aiAnalysis: {
           summary: "Déclaration d'amour romantique en typographie moderne et prénom du destinataire.",

@@ -16,12 +16,6 @@ function TemplateCard({ product, template }) {
         <span className="absolute left-3 top-3 rounded-full bg-background/90 backdrop-blur-sm px-2.5 py-1 text-xs font-semibold text-foreground shadow-sm">
           {template.category}
         </span>
-        {template.aiAnalysis && (
-          <span className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-primary/90 text-primary-foreground backdrop-blur-sm px-2 py-0.5 text-[11px] font-medium shadow-sm">
-            <Bot className="h-3 w-3" />
-            IA Détectée
-          </span>
-        )}
       </div>
 
       <CardContent className="p-4 flex flex-col gap-3">

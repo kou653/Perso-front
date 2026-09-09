@@ -134,8 +134,17 @@ export function PersonnaliserProduitPage() {
       return;
     }
 
-    if (!customerPhone.trim()) {
+    const requiredDigits = selectedCountry.digitsCount || 9;
+    const cleanPhone = customerPhone.replace(/\D/g, '');
+
+    if (!cleanPhone) {
       setValidationError('Veuillez renseigner votre numéro de téléphone.');
+      document.getElementById('cust-phone')?.focus();
+      return;
+    }
+
+    if (cleanPhone.length !== requiredDigits) {
+      setValidationError(`Le numéro de téléphone pour ${selectedCountry.name} (${selectedCountry.dialCode}) doit comporter exactement ${requiredDigits} chiffres (actuellement ${cleanPhone.length}).`);
       document.getElementById('cust-phone')?.focus();
       return;
     }
@@ -485,15 +494,12 @@ export function PersonnaliserProduitPage() {
             
             {/* Titre & Description */}
             <div className="space-y-2">
-              <div className="flex items-center justify-between flex-wrap gap-2">
-                <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-                  <Sparkles className="h-3.5 w-3.5" /> {template.category || "Personnalisation"}
-                </div>
-                <span className="text-xl font-bold text-primary">{product.price}</span>
+              <div className="flex items-center justify-between gap-4">
+                <h1 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
+                  {template.name}
+                </h1>
+                <span className="text-xl font-bold text-primary shrink-0">{product.price}</span>
               </div>
-              <h1 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
-                {template.name}
-              </h1>
               <p className="text-muted-foreground text-sm sm:text-base">
                 {template.description}
               </p>
@@ -673,14 +679,19 @@ export function PersonnaliserProduitPage() {
 
                     {/* Numéro de téléphone (Obligatoire avec *) */}
                     <div className="space-y-1.5 sm:col-span-1">
-                      <Label htmlFor="cust-phone" className="text-xs flex items-center gap-1.5 font-medium">
-                        <Phone className="h-3.5 w-3.5 text-primary" />
-                        Numéro de téléphone <span className="text-destructive font-bold">*</span>
+                      <Label htmlFor="cust-phone" className="text-xs flex items-center justify-between font-medium">
+                        <span className="flex items-center gap-1.5">
+                          <Phone className="h-3.5 w-3.5 text-primary" />
+                          Numéro de téléphone <span className="text-destructive font-bold">*</span>
+                        </span>
+                        <span className="text-[10px] text-muted-foreground font-normal">
+                          ({selectedCountry.digitsCount} chiffres)
+                        </span>
                       </Label>
                       
                       {/* Champ unique compact : uniquement l'indicateur (+225) et le numéro */}
                       <div className={`relative flex items-center h-9 rounded-md border bg-background shadow-xs focus-within:ring-2 transition-all overflow-hidden ${
-                        validationError && !customerPhone.trim() 
+                        validationError && (!customerPhone.trim() || customerPhone.replace(/\D/g, '').length !== selectedCountry.digitsCount)
                           ? "border-destructive focus-within:ring-destructive" 
                           : "border-input focus-within:ring-ring focus-within:border-primary"
                       }`}>
@@ -694,28 +705,35 @@ export function PersonnaliserProduitPage() {
                           <select
                             id="cust-country"
                             value={selectedCountryCode}
-                            onChange={(e) => setSelectedCountryCode(e.target.value)}
+                            onChange={(e) => {
+                              setSelectedCountryCode(e.target.value);
+                              if (validationError) setValidationError(null);
+                            }}
                             aria-label="Sélectionner le pays"
                             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                           >
                             {COUNTRIES.map((c) => (
                               <option key={c.code} value={c.code}>
-                                {c.flag} {c.dialCode} - {c.name}
+                                {c.flag} {c.dialCode} - {c.name} ({c.digitsCount} chiffres)
                               </option>
                             ))}
                           </select>
                         </div>
 
-                        {/* Saisie directe du numéro */}
+                        {/* Saisie directe du numéro (chiffres uniquement et longueur exacte) */}
                         <div className="flex-1 flex items-center">
                           <input
                             id="cust-phone"
                             type="tel"
+                            inputMode="numeric"
+                            pattern="[0-9]*"
+                            maxLength={selectedCountry.digitsCount}
                             required
-                            placeholder={selectedCountry.placeholder || '6 12 34 56 78'}
+                            placeholder={selectedCountry.placeholder ? selectedCountry.placeholder.replace(/\s/g, '') : '012345678'}
                             value={customerPhone}
                             onChange={(e) => {
-                              setCustomerPhone(e.target.value);
+                              const val = e.target.value.replace(/\D/g, '').slice(0, selectedCountry.digitsCount);
+                              setCustomerPhone(val);
                               if (validationError) setValidationError(null);
                             }}
                             className="w-full h-9 px-2.5 bg-transparent text-xs sm:text-sm font-medium text-foreground placeholder:text-muted-foreground/60 focus:outline-none"
