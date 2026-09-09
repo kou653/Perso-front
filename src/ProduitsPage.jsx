@@ -32,7 +32,7 @@ export function ProduitsPage() {
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
             Choisissez un modèle de mug et remplacez les informations par les vôtres.
-            L'IA reproduira exactement le même design avec vos données.
+          
           </p>
         </div>
 
@@ -112,26 +112,16 @@ export function ProduitsPage() {
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary text-xl font-bold text-primary-foreground">
                 3
               </div>
-              <h3 className="mt-4 font-semibold text-foreground">L'IA crée votre design</h3>
+              <h3 className="mt-4 font-semibold text-foreground">Commander</h3>
               <p className="mt-2 text-sm text-muted-foreground">
-                Notre IA reproduit exactement le même style avec vos informations.
+                Validez votre commande et nous nous occupons du reste.
               </p>
             </div>
           </div>
         </div>
 
-        <div className="mx-auto mt-12 max-w-xl text-center">
-          <p className="text-muted-foreground">
-            Vous ne trouvez pas ce que vous cherchez ?
-          </p>
-          <Button asChild variant="outline" className="mt-4">
-            <Link to="/personnaliser">
-              <Sparkles className="mr-2 h-4 w-4" />
-              Créer un design de zéro avec l'IA
-            </Link>
-          </Button>
-        </div>
       </div>
     </div>
   );
 }
+

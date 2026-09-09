@@ -6,7 +6,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Check, ChevronRight, Loader2, RefreshCw, ShoppingCart, Sparkles, Send } from "lucide-react";
+import { COUNTRIES, DEFAULT_COUNTRY } from "./lib/countries";
+import { Check, ChevronRight, Loader2, RefreshCw, ShoppingCart, Sparkles, Send, MapPin, Phone, Truck, User } from "lucide-react";
+
 
 function Step2DescribeDesign({ product, onSubmit, onBack }) {
   const [description, setDescription] = useState('');
@@ -179,7 +181,11 @@ function Step3ViewTemplate({ product, template, onNext, onBack }) {
 
 function Step4FillFields({ product, template, onSubmit, onBack }) {
   const [customerName, setCustomerName] = useState('');
-  const [customerEmail, setCustomerEmail] = useState('');
+  const [deliveryLocation, setDeliveryLocation] = useState('');
+  const [selectedCountryCode, setSelectedCountryCode] = useState(DEFAULT_COUNTRY.code);
+  const [customerPhone, setCustomerPhone] = useState('');
+
+  const selectedCountry = COUNTRIES.find((c) => c.code === selectedCountryCode) || DEFAULT_COUNTRY;
   const [values, setValues] = useState(() => {
     const initial = {};
     if (template.editable_areas) {
@@ -200,14 +206,30 @@ function Step4FillFields({ product, template, onSubmit, onBack }) {
   const handleSubmit = async e => {
     e.preventDefault();
     setError(null);
+
+    if (!deliveryLocation.trim()) {
+      setError('Veuillez renseigner votre lieu de livraison.');
+      document.getElementById('delivery-location')?.focus();
+      return;
+    }
+
+    if (!customerPhone.trim()) {
+      setError('Veuillez renseigner votre numéro de téléphone.');
+      document.getElementById('cust-phone')?.focus();
+      return;
+    }
+
     setIsLoading(true);
+
+    const fullPhone = `${selectedCountry.dialCode} ${customerPhone.trim()}`;
 
     try {
       const payload = {
         product_id: parseInt(product.id),
         product_template_id: parseInt(template.id),
         customer_name: customerName || null,
-        customer_email: customerEmail || null,
+        delivery_location: deliveryLocation.trim(),
+        customer_phone: fullPhone,
         customization_data: values,
       };
 
@@ -256,29 +278,95 @@ function Step4FillFields({ product, template, onSubmit, onBack }) {
 
             <form onSubmit={handleSubmit} className="space-y-8">
               <div className="space-y-4">
-                <h3 className="font-semibold text-lg">Informations client</h3>
+                <div className="flex items-center justify-between">
+                  <h3 className="font-semibold text-lg flex items-center gap-2">
+                    <Truck className="h-4 w-4 text-primary" />
+                    Informations de livraison & Contact
+                  </h3>
+                  <span className="text-[11px] font-normal text-muted-foreground">
+                    <span className="text-destructive font-bold">*</span> Champs obligatoires
+                  </span>
+                </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Nom */}
                   <div className="space-y-2">
-                    <Label htmlFor="customer-name">Nom</Label>
+                    <Label htmlFor="customer-name" className="flex items-center gap-1.5">
+                      <User className="h-3.5 w-3.5 text-muted-foreground" />
+                      Nom ou Prénom
+                    </Label>
                     <Input
                       id="customer-name"
                       type="text"
                       value={customerName}
                       onChange={e => setCustomerName(e.target.value)}
-                      placeholder="Votre nom"
+                      placeholder="Ex: Sophie Martin"
                       disabled={isLoading}
                     />
                   </div>
+
+                  {/* Lieu de livraison */}
                   <div className="space-y-2">
-                    <Label htmlFor="customer-email">Email</Label>
+                    <Label htmlFor="delivery-location" className="flex items-center gap-1.5">
+                      <MapPin className="h-3.5 w-3.5 text-primary" />
+                      Lieu de livraison <span className="text-destructive font-bold">*</span>
+                    </Label>
                     <Input
-                      id="customer-email"
-                      type="email"
-                      value={customerEmail}
-                      onChange={e => setCustomerEmail(e.target.value)}
-                      placeholder="vous@exemple.com"
+                      id="delivery-location"
+                      type="text"
+                      required
+                      value={deliveryLocation}
+                      onChange={e => setDeliveryLocation(e.target.value)}
+                      placeholder="Ex: 14 Rue de la Paix, Paris..."
                       disabled={isLoading}
                     />
+                  </div>
+
+                  {/* Numéro de téléphone (même largeur qu'un champ unique) */}
+                  <div className="space-y-2 sm:col-span-1">
+                    <Label htmlFor="cust-phone" className="flex items-center gap-1.5">
+                      <Phone className="h-3.5 w-3.5 text-primary" />
+                      Numéro de téléphone <span className="text-destructive font-bold">*</span>
+                    </Label>
+                    
+                    {/* Champ unique compact : uniquement l'indicateur (+225) et le numéro */}
+                    <div className="relative flex items-center h-10 rounded-md border border-input bg-background shadow-xs focus-within:ring-2 focus-within:ring-ring focus-within:border-primary transition-all overflow-hidden">
+                      {/* Sélecteur compact avec uniquement drapeau + indicatif */}
+                      <div className="relative shrink-0 border-r border-input bg-muted/40 hover:bg-muted/70 transition-colors flex items-center">
+                        <div className="px-2.5 py-1.5 flex items-center gap-1 text-xs font-semibold text-foreground select-none pointer-events-none">
+                          <span>{selectedCountry.flag}</span>
+                          <span>{selectedCountry.dialCode}</span>
+                          <span className="text-muted-foreground text-[8px] ml-0.5">▼</span>
+                        </div>
+                        <select
+                          id="cust-country"
+                          value={selectedCountryCode}
+                          onChange={(e) => setSelectedCountryCode(e.target.value)}
+                          disabled={isLoading}
+                          aria-label="Sélectionner le pays"
+                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                        >
+                          {COUNTRIES.map((c) => (
+                            <option key={c.code} value={c.code}>
+                              {c.flag} {c.dialCode} - {c.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      {/* Saisie directe du numéro */}
+                      <div className="flex-1 flex items-center">
+                        <input
+                          id="cust-phone"
+                          type="tel"
+                          required
+                          placeholder={selectedCountry.placeholder || '6 12 34 56 78'}
+                          value={customerPhone}
+                          onChange={(e) => setCustomerPhone(e.target.value)}
+                          disabled={isLoading}
+                          className="w-full h-10 px-2.5 bg-transparent text-xs sm:text-sm font-medium text-foreground placeholder:text-muted-foreground/60 focus:outline-none"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
