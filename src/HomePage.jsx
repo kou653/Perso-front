@@ -30,6 +30,29 @@ const features = [
 ];
 
 
+const featuredModels = [
+  {
+    id: "mug-maman-damour",
+    name: "Maman d'Amour",
+    image: "/model/mug-maman-damour.jpg",
+  },
+  {
+    id: "mug-calendrier-couple",
+    name: "Calendrier & Photo Couple",
+    image: "/model/mug-calendrier-couple.jpg",
+  },
+  {
+    id: "mug-belle-mere",
+    name: "Belle-Mère & Famille",
+    image: "/model/mug-belle-mere.jpg",
+  },
+  {
+    id: "mug-monogramme-or",
+    name: "Monogramme Doré",
+    image: "/model/mug-monogramme-or.jpg",
+  },
+];
+
 export function HomePage() {
   return (
     <div className="flex flex-col">
@@ -64,6 +87,58 @@ export function HomePage() {
                 className="relative rounded-2xl shadow-2xl w-full h-auto object-cover"
               />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 4 Modèles Populaires */}
+      <section className="py-16 sm:py-20 bg-background border-b border-border/40">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-10 space-y-1">
+            <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+              Nos Modèles Populaires
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              Découvrez un aperçu de nos plus beaux modèles de mugs personnalisables.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {featuredModels.map((item) => (
+              <Card key={item.id} className="group overflow-hidden border-border/60 bg-card shadow-xs transition-all hover:shadow-xl hover:border-primary/50 flex flex-col justify-between">
+                <div className="relative aspect-square overflow-hidden bg-muted/40">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+                <CardContent className="p-4 flex flex-col gap-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <h3 className="font-semibold text-foreground text-sm group-hover:text-primary transition-colors leading-snug">
+                      {item.name}
+                    </h3>
+                    <span className="shrink-0 font-bold text-primary text-sm">14,99 €</span>
+                  </div>
+                  <Button asChild className="w-full shadow-sm">
+                    <Link to={`/personnaliser/mug/${item.id}`}>
+                      <Sparkles className="mr-2 h-4 w-4" />
+                      Personnaliser ce modèle
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="mt-10 text-center">
+            <Button asChild size="lg" variant="outline" className="shadow-xs font-semibold">
+              <Link to="/produits">
+                Voir tous les modèles
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
           </div>
         </div>
       </section>

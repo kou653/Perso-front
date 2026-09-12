@@ -1,68 +1,66 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Sparkles, Filter } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { products } from "@/lib/products";
 import { TemplateCard } from "@/components/TemplateCard";
 
 const productList = Object.values(products);
 
 export function ProduitsPage() {
-  const [selectedCategory, setSelectedCategory] = useState(null);
-
-  const allCategories = Array.from(
-    new Set(
-      productList.flatMap((p) => p.templates.map((t) => t.category))
-    )
-  ).sort();
+  const [searchQuery, setSearchQuery] = useState("");
 
   const filteredTemplates = productList.flatMap((p) =>
     p.templates
-      .filter((t) => !selectedCategory || t.category === selectedCategory)
+      .filter((t) => {
+        if (!searchQuery.trim()) return true;
+        const q = searchQuery.toLowerCase().trim();
+        const matchName = t.name.toLowerCase().includes(q);
+        const matchCategory = t.category ? t.category.toLowerCase().includes(q) : false;
+        const matchDesc = t.description ? t.description.toLowerCase().includes(q) : false;
+        return matchName || matchCategory || matchDesc;
+      })
       .map((t) => ({ product: p, template: t }))
   );
 
   return (
     <div className="py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        {/* Barre de recherche compacte et élégante (en haut) */}
+        <div className="mx-auto max-w-md mb-6">
+          <div className="relative flex items-center">
+            <Search className="absolute left-3.5 h-4 w-4 text-muted-foreground pointer-events-none" />
+            <Input
+              type="text"
+              placeholder="Rechercher un modèle ou catégorie..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-9 pr-9 h-10 text-sm bg-background border-border/80 shadow-xs focus-visible:ring-primary rounded-full"
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3 p-1 rounded-full text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                aria-label="Effacer la recherche"
+              >
+                <X className="h-3.5 w-3.5" />
+              </button>
+            )}
+          </div>
+        </div>
+
         <div className="mx-auto max-w-2xl text-center">
           <h1 className="text-balance text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             Modèles de Mugs
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
             Choisissez un modèle de mug et remplacez les informations par les vôtres.
-          
           </p>
         </div>
 
-        <div className="mx-auto mt-12 max-w-4xl">
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground mr-2">
-              <Filter className="h-4 w-4" />
-              <span>Catégorie :</span>
-            </div>
-            <Button
-              variant={selectedCategory === null ? "secondary" : "ghost"}
-              size="sm"
-              onClick={() => setSelectedCategory(null)}
-            >
-              Toutes
-            </Button>
-            {allCategories.map((category) => (
-              <Button
-                key={category}
-                variant={selectedCategory === category ? "secondary" : "ghost"}
-                size="sm"
-                onClick={() => setSelectedCategory(category)}
-              >
-                {category}
-              </Button>
-            ))}
-          </div>
-        </div>
-
-        <div className="mx-auto mt-12 grid max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="mx-auto mt-10 grid max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {filteredTemplates.map(({ product, template }) => (
             <TemplateCard
               key={`${product.id}-${template.id}`}
@@ -73,16 +71,15 @@ export function ProduitsPage() {
         </div>
 
         {filteredTemplates.length === 0 && (
-          <div className="mt-16 text-center">
+          <div className="mt-16 text-center space-y-4">
             <p className="text-muted-foreground">
-              Aucun modèle ne correspond à vos critères.
+              Aucun modèle ne correspond à votre recherche « <strong className="text-foreground">{searchQuery}</strong> ».
             </p>
             <Button
               variant="outline"
-              className="mt-4"
-              onClick={() => setSelectedCategory(null)}
+              onClick={() => setSearchQuery("")}
             >
-              Réinitialiser les filtres
+              Réinitialiser la recherche
             </Button>
           </div>
         )}

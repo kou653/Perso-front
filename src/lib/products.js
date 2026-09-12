@@ -229,8 +229,8 @@ export const products = {
       // ─────────────────────────────────────────────────────────────────────
       {
         id: "mug-magique-maman",
-        name: "Best Mom & Poème",
-        description: "Face avant avec photo et mention 'Best Mom Ever', face arrière avec un poème émouvant.",
+        name: "Tasse Magique Personnalisée",
+        description: "Tasse magique personnalisée (customized magic cup). Face avant avec photo et mention 'Best Mom Ever', face arrière avec un poème émouvant.",
         category: "Famille & Cadeau",
         imageUrl: "/model/mug-magique-maman.png",
         aiAnalysis: {
