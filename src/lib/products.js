@@ -20,6 +20,7 @@ export const products = {
         name: "Belle-Mère & Famille",
         description: "Tasse avec poignée en cœur, collage de 2 photos polaroid et message d'affection.",
         category: "Famille & Cadeau",
+        keywords: ["tasse", "mug", "cup", "belle-mere", "belle mere", "belle-maman", "maman", "famille", "polaroid", "photo", "merci", "mother in law", "cadeau", "souvenir"],
         imageUrl: "/model/mug-belle-mere.jpg",
         aiAnalysis: {
           summary: "Modèle composé d'un en-tête affectueux, de deux photos polaroid vintage et d'un texte de remerciement au bas.",
@@ -34,8 +35,6 @@ export const products = {
           photo_2: "/model/mug-belle-mere.jpg",
           footer_message: "Thank you my mother-in-law for treating me like a daughter.",
         },
-        // ── Config rendu réaliste ──────────────────────────────────────────
-        // Vue quasi-frontale → cylinderWarp faible, reflets discrets
         renderConfig: {
           cylinderWarp: 2,
           overlayIntensity: 0.35,
@@ -116,6 +115,7 @@ export const products = {
         name: "Calendrier & Photo Couple",
         description: "Double face : calendrier avec cœur sur la date clé et photo de couple avec mot doux.",
         category: "Amour & Couple",
+        keywords: ["tasse", "mug", "cup", "calendrier", "date", "couple", "amour", "saint valentin", "saint-valentin", "mot doux", "coeur", "cœur", "anniversaire", "mariage"],
         imageUrl: "/model/mug-calendrier-couple.jpg",
         aiAnalysis: {
           summary: "Modèle duo intégrant un calendrier commémoratif personnalisé avec un cœur sur le jour précis, ainsi qu'une photo de couple et citation.",
@@ -131,7 +131,6 @@ export const products = {
           photo_couple: "/model/mug-calendrier-couple.jpg",
           couple_message: "Te amo !!",
         },
-        // Vue vue de dessus légèrement → quasi-plat, image présentant 2 mugs
         renderConfig: {
           cylinderWarp: 2,
           overlayIntensity: 0.28,
@@ -229,9 +228,10 @@ export const products = {
       // ─────────────────────────────────────────────────────────────────────
       {
         id: "mug-magique-maman",
-        name: "Tasse Magique Personnalisée",
-        description: "Tasse magique personnalisée (customized magic cup). Face avant avec photo et mention 'Best Mom Ever', face arrière avec un poème émouvant.",
+        name: "Best Mom & Poème",
+        description: "Face avant avec photo et mention 'Best Mom Ever', face arrière avec un poème émouvant.",
         category: "Famille & Cadeau",
+        keywords: ["tasse", "mug", "cup", "best mom", "poeme", "poème", "tasse magique", "tasse magique personnalisee", "tasse magique personnalisée", "mug magique", "magic cup", "customized magic cup", "maman", "mom", "famille", "photo", "noir"],
         imageUrl: "/model/mug-magique-maman.png",
         aiAnalysis: {
           summary: "Design bi-face avec titre 'Best Mom Ever', photo de famille centrale et poème de gratitude au dos.",
@@ -246,7 +246,6 @@ export const products = {
           front_subtitle: "WE LOVE YOU SO MUCH",
           back_poem: "Tu es notre repère, notre force et notre plus belle histoire ❤️",
         },
-        // Vue légèrement de face, fond sombre → reflets très subtils
         renderConfig: {
           cylinderWarp: 3,
           overlayIntensity: 0.40,
@@ -332,6 +331,7 @@ export const products = {
         name: "Monogramme Doré",
         description: "Grande initiale dorée majuscule ornée d'un prénom calligraphié en noir.",
         category: "Monogramme & Élégant",
+        keywords: ["tasse", "mug", "cup", "monogramme", "initiale", "lettre", "or", "dore", "doré", "elegant", "élégant", "chic", "prenom", "prénom", "luxe"],
         imageUrl: "/model/mug-monogramme-or.jpg",
         aiAnalysis: {
           summary: "Design raffiné avec une majuscule dorée en arrière-plan et un prénom en écriture manuscrite fluide superposé.",
@@ -344,7 +344,6 @@ export const products = {
           initial: "M",
           name: "Mackenzie",
         },
-        // Vue 3/4 légère, mug blanc → reflets visibles sur les côtés
         renderConfig: {
           cylinderWarp: 4,
           overlayIntensity: 0.55,
@@ -399,6 +398,7 @@ export const products = {
         name: "Maman d'Amour",
         description: "Mug avec intérieur rouge. Face 1 : 'Maman D'AMOUR', Face 2 : Prénoms des enfants.",
         category: "Famille & Cadeau",
+        keywords: ["tasse", "mug", "cup", "maman", "maman d'amour", "maman damour", "enfants", "prenoms", "prénoms", "famille", "fete des meres", "fête des mères", "rouge"],
         imageUrl: "/model/mug-maman-damour.jpg",
         aiAnalysis: {
           summary: "Mug bicolore avec inscription 'Maman D'AMOUR' sur une face et liste des prénoms des enfants sur l'autre face.",
@@ -411,7 +411,6 @@ export const products = {
           title: "Maman D'AMOUR",
           children_names: "Alma\nLucie\nNoah",
         },
-        // Image montre 2 mugs côte à côte → zone limitée à gauche
         renderConfig: {
           cylinderWarp: 4,
           overlayIntensity: 0.45,
@@ -468,6 +467,7 @@ export const products = {
         name: "Tu es l'amour de ma vie",
         description: "Mug intérieur rouge avec la déclaration d'amour et le prénom personnalisé.",
         category: "Amour & Couple",
+        keywords: ["tasse", "mug", "cup", "ourson", "amour", "saint valentin", "saint-valentin", "tu es l'amour de ma vie", "declaration", "déclaration", "couple", "prenom", "prénom", "rouge"],
         imageUrl: "/model/mug-ourson-amour.jpg",
         aiAnalysis: {
           summary: "Déclaration d'amour romantique en typographie moderne et prénom du destinataire.",
@@ -480,7 +480,6 @@ export const products = {
           quote: "Tu es L'AMOUR de ma vie",
           name: "Caroline",
         },
-        // Vue 3/4 à ~15°, mug blanc avec reflet gauche marqué
         renderConfig: {
           cylinderWarp: 5,
           overlayIntensity: 0.62,
@@ -535,6 +534,7 @@ export const products = {
         name: "Photo Souvenir & Date",
         description: "Photo carrée haute définition, prénoms de couple élégants et date commémorative.",
         category: "Photo & Souvenir",
+        keywords: ["tasse", "mug", "cup", "photo", "souvenir", "couple", "date", "mariage", "rencontre", "cadre", "memoire", "mémoire", "noms"],
         imageUrl: "/model/mug-photo-souvenir.jpg",
         aiAnalysis: {
           summary: "Mise en page épurée style tirage photo avec une belle photo carrée, les prénoms du couple et la date souvenir avec un petit cœur central.",
@@ -548,7 +548,6 @@ export const products = {
           couple_names: "Lucas & Isabella",
           special_date: "22.06.2024",
         },
-        // Vue quasi-frontale, très peu de courbure
         renderConfig: {
           cylinderWarp: 3,
           overlayIntensity: 0.42,
@@ -615,6 +614,7 @@ export const products = {
         name: "Prénom & Cœur",
         description: "Design épuré et raffiné avec un cœur délicat et votre prénom manuscrit.",
         category: "Minimaliste & Prénom",
+        keywords: ["tasse", "mug", "cup", "minimaliste", "prenom", "prénom", "coeur", "cœur", "epure", "épuré", "simple", "lettrage", "chic", "discret"],
         imageUrl: "/model/mug-minimaliste-prenom.jpg",
         aiAnalysis: {
           summary: "Style minimaliste moderne avec un petit cœur tracé à la main et un prénom calligraphié élégant.",

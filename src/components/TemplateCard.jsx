@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Sparkles, Bot } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -13,9 +13,6 @@ function TemplateCard({ product, template }) {
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
           loading="lazy"
         />
-        <span className="absolute left-3 top-3 rounded-full bg-background/90 backdrop-blur-sm px-2.5 py-1 text-xs font-semibold text-foreground shadow-sm">
-          {template.category}
-        </span>
       </div>
 
       <CardContent className="p-4 flex flex-col gap-3">

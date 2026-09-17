@@ -19,7 +19,10 @@ export function ProduitsPage() {
         const matchName = t.name.toLowerCase().includes(q);
         const matchCategory = t.category ? t.category.toLowerCase().includes(q) : false;
         const matchDesc = t.description ? t.description.toLowerCase().includes(q) : false;
-        return matchName || matchCategory || matchDesc;
+        const matchKeywords = Array.isArray(t.keywords)
+          ? t.keywords.some((k) => k.toLowerCase().includes(q))
+          : false;
+        return matchName || matchCategory || matchDesc || matchKeywords;
       })
       .map((t) => ({ product: p, template: t }))
   );
