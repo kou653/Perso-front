@@ -307,7 +307,7 @@ export function PersonnaliserProduitPage() {
               <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
                 Récapitulatif de votre commande
               </h1>
-              <p className="text-muted-foreground text-sm max-w-xl mx-auto">
+              <p className="text-[13px] sm:text-[15px] text-muted-foreground/90 font-medium max-w-xl mx-auto">
                 Veuillez vérifier vos informations ci-dessous avant d'envoyer votre commande à l'atelier.
               </p>
             </div>
@@ -503,7 +503,7 @@ export function PersonnaliserProduitPage() {
                 </h1>
                 <span className="text-xl font-bold text-primary shrink-0">{product.price}</span>
               </div>
-              <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+              <p className="text-[13px] sm:text-[15px] text-muted-foreground/90 font-medium leading-relaxed">
                 {template.description}
               </p>
             </div>

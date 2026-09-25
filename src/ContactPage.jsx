@@ -57,7 +57,7 @@ export function ContactPage() {
           <h1 className="text-balance text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground leading-tight">
             Contactez-nous
           </h1>
-          <p className="text-pretty text-base sm:text-lg text-muted-foreground leading-relaxed">
+          <p className="text-pretty text-[15px] sm:text-[17px] text-muted-foreground/90 font-medium leading-relaxed">
             Une question ? Un projet personnalisé ? Notre équipe est là pour vous accompagner.
           </p>
         </div>

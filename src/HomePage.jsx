@@ -61,7 +61,7 @@ export function HomePage() {
             <h1 className="text-balance text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground leading-tight sm:leading-tight">
               Votre mug personnalisé sur-mesure
             </h1>
-            <p className="mt-6 text-pretty text-base sm:text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-6 text-pretty text-[15px] sm:text-[17px] leading-relaxed text-muted-foreground/90 font-medium">
               Choisissez un modèle parmi notre collection. Notre système détecte automatiquement chaque élément et vous permet de les remplacer ou de conserver l'original.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
@@ -94,7 +94,7 @@ export function HomePage() {
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-foreground">
               Nos Modèles Populaires
             </h2>
-            <p className="text-pretty text-base sm:text-lg leading-relaxed text-muted-foreground">
+            <p className="text-pretty text-[15px] sm:text-base text-muted-foreground/90 font-medium">
               Découvrez un aperçu de nos plus beaux modèles.
             </p>
           </div>
@@ -127,7 +127,7 @@ export function HomePage() {
             <h2 className="text-balance text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-foreground">
               Comment fonctionne CustomPrint ?
             </h2>
-            <p className="text-pretty text-base sm:text-lg leading-relaxed text-muted-foreground">
+            <p className="text-pretty text-[15px] sm:text-base text-muted-foreground/90 font-medium">
               Une expérience fluide et intuitive en 3 étapes simples.
             </p>
           </div>

@@ -11,7 +11,7 @@ export function Footer() {
           <h2 className="text-balance text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-primary-foreground">
             Prêt à créer votre mug unique ?
           </h2>
-          <p className="text-base sm:text-lg leading-relaxed text-primary-foreground/90 max-w-2xl mx-auto font-normal">
+          <p className="text-[15px] sm:text-[17px] leading-relaxed text-primary-foreground/90 max-w-2xl mx-auto font-medium">
             Parcourez nos modèles de mugs et soyez guidés pour y intégrer vos souvenirs et vos mots doux.
           </p>
 

@@ -58,7 +58,7 @@ export function ProduitsPage() {
           <h1 className="text-balance text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground leading-tight">
             Modèles de Mugs
           </h1>
-          <p className="text-pretty text-base sm:text-lg text-muted-foreground leading-relaxed">
+          <p className="text-pretty text-[15px] sm:text-[17px] text-muted-foreground/90 font-medium leading-relaxed">
             Choisissez un modèle parmi notre collection et remplacez les informations par les vôtres.
           </p>
         </div>
@@ -91,7 +91,7 @@ export function ProduitsPage() {
         <div className="mx-auto mt-24 max-w-4xl rounded-3xl bg-card p-8 sm:p-12 border border-border/60 shadow-md">
           <div className="text-center space-y-2 mb-10">
             <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-foreground">Comment ça marche ?</h2>
-            <p className="text-sm text-muted-foreground">Personnalisez et commandez votre mug en quelques clics.</p>
+            <p className="text-[13px] sm:text-sm text-muted-foreground/90 font-medium">Personnalisez et commandez votre mug en quelques clics.</p>
           </div>
 
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
