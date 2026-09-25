@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Send } from "lucide-react";
+import { Send, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -51,34 +51,34 @@ export function ContactPage() {
   };
 
   return (
-    <div className="py-16 sm:py-24">
+    <div className="py-12 sm:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
+        <div className="mx-auto max-w-2xl text-center space-y-2 mb-10">
           <h1 className="text-balance text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground leading-tight">
             Contactez-nous
           </h1>
-          <p className="mt-4 text-lg text-muted-foreground">
+          <p className="text-pretty text-base sm:text-lg text-muted-foreground leading-relaxed">
             Une question ? Un projet personnalisé ? Notre équipe est là pour vous accompagner.
           </p>
         </div>
 
-        <div className="mx-auto mt-12 max-w-2xl">
-          <Card className="border-border/50 shadow-sm">
-            <CardHeader>
-              <CardTitle className="text-xl">Envoyez-nous un message</CardTitle>
+        <div className="mx-auto max-w-xl">
+          <Card className="border border-border/60 bg-card rounded-3xl shadow-md overflow-hidden">
+            <CardHeader className="bg-muted/20 border-b border-border/40 pb-5">
+              <CardTitle className="text-xl font-semibold">Envoyez-nous un message</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6 sm:p-8">
               {submitted ? (
-                <div className="rounded-lg bg-accent/50 p-6 text-center">
-                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-accent">
-                    <Send className="h-6 w-6 text-accent-foreground" />
+                <div className="rounded-2xl bg-primary/5 border border-primary/20 p-8 text-center space-y-4">
+                  <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <CheckCircle2 className="h-8 w-8" />
                   </div>
-                  <h3 className="mt-4 text-lg font-semibold text-foreground">Message envoyé !</h3>
-                  <p className="mt-2 text-muted-foreground">
-                    Nous vous répondrons dans les plus brefs délais.
+                  <h3 className="text-xl font-bold text-foreground">Message envoyé avec succès !</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Nous vous répondrons dans les plus brefs délais sur votre numéro.
                   </p>
                   <Button
-                    className="mt-4"
+                    className="mt-2 font-semibold cursor-pointer"
                     variant="outline"
                     onClick={() => {
                       setSubmitted(false);
@@ -92,7 +92,7 @@ export function ContactPage() {
                 <form onSubmit={handleSubmit}>
                   <FieldGroup>
                     <Field>
-                      <FieldLabel htmlFor="name">Nom complet</FieldLabel>
+                      <FieldLabel htmlFor="name" className="text-xs font-medium">Nom complet <span className="text-destructive">*</span></FieldLabel>
                       <Input
                         id="name"
                         type="text"
@@ -100,12 +100,13 @@ export function ContactPage() {
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         required
                         placeholder="Jean Dupont"
+                        className="h-10 text-sm"
                       />
                     </Field>
 
                     <Field>
-                      <FieldLabel htmlFor="phone" className="flex items-center justify-between">
-                        <span>Numéro de téléphone</span>
+                      <FieldLabel htmlFor="phone" className="flex items-center justify-between text-xs font-medium">
+                        <span>Numéro de téléphone <span className="text-destructive">*</span></span>
                         <span className="text-[10px] text-muted-foreground font-normal">
                           ({selectedCountry.digitsCount} chiffres requis)
                         </span>
@@ -170,18 +171,19 @@ export function ContactPage() {
                     </Field>
 
                     <Field>
-                      <FieldLabel htmlFor="subject">Sujet <span className="text-xs font-normal text-muted-foreground">(optionnel)</span></FieldLabel>
+                      <FieldLabel htmlFor="subject" className="text-xs font-medium">Sujet <span className="text-xs font-normal text-muted-foreground">(optionnel)</span></FieldLabel>
                       <Input
                         id="subject"
                         type="text"
                         value={formData.subject}
                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                         placeholder="Votre sujet"
+                        className="h-10 text-sm"
                       />
                     </Field>
 
                     <Field>
-                      <FieldLabel htmlFor="message">Message</FieldLabel>
+                      <FieldLabel htmlFor="message" className="text-xs font-medium">Message <span className="text-destructive">*</span></FieldLabel>
                       <Textarea
                         id="message"
                         value={formData.message}
@@ -189,10 +191,11 @@ export function ContactPage() {
                         required
                         placeholder="Décrivez votre demande..."
                         rows={5}
+                        className="text-sm"
                       />
                     </Field>
 
-                    <Button type="submit" className="w-full" disabled={isSubmitting}>
+                    <Button type="submit" className="w-full shadow-md font-semibold cursor-pointer py-2.5" disabled={isSubmitting}>
                       {isSubmitting ? (
                         "Envoi en cours..."
                       ) : (

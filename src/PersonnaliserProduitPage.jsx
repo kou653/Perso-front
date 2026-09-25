@@ -493,14 +493,17 @@ export function PersonnaliserProduitPage() {
           <div className="mx-auto max-w-2xl space-y-6">
             
             {/* Titre & Description */}
-            <div className="space-y-2">
+            <div className="space-y-3">
+              <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary border border-primary/20">
+                Étape 1 sur 2 • Personnalisation du mug
+              </div>
               <div className="flex items-center justify-between gap-4">
-                <h1 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
+                <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
                   {template.name}
                 </h1>
                 <span className="text-xl font-bold text-primary shrink-0">{product.price}</span>
               </div>
-              <p className="text-muted-foreground text-sm sm:text-base">
+              <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
                 {template.description}
               </p>
             </div>
