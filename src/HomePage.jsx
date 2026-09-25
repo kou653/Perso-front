@@ -52,10 +52,10 @@ export function HomePage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-accent/15 py-20 sm:py-28">
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary/15 via-primary/5 to-accent/20 border-b border-border/60 shadow-xs py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 lg:flex lg:items-center lg:gap-x-12">
           <div className="mx-auto max-w-2xl lg:mx-0 lg:flex-auto">
-            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3.5 py-1 text-xs font-semibold text-primary mb-6 border border-primary/20">
+            <div className="inline-flex items-center gap-2 rounded-full bg-primary/15 px-3.5 py-1 text-xs font-semibold text-primary mb-6 border border-primary/30">
               Personnalisation Sur-Mesure
             </div>
             <h1 className="text-balance text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground leading-tight sm:leading-tight">
@@ -76,11 +76,11 @@ export function HomePage() {
 
           <div className="mt-14 lg:mt-0 lg:shrink-0 lg:grow">
             <div className="relative mx-auto w-[22rem] max-w-full">
-              <div className="absolute -inset-4 rounded-3xl bg-gradient-to-r from-primary/20 via-primary/10 to-accent/20 blur-2xl opacity-70" />
+              <div className="absolute -inset-4 rounded-3xl bg-gradient-to-r from-primary/30 via-primary/15 to-accent/30 blur-2xl opacity-80" />
               <img
                 src="/model/mug-photo-souvenir.jpg"
                 alt="Mug personnalisé"
-                className="relative rounded-2xl shadow-2xl w-full h-auto object-cover border border-border/40"
+                className="relative rounded-2xl shadow-2xl w-full h-auto object-cover border border-border/60"
               />
             </div>
           </div>
@@ -88,14 +88,14 @@ export function HomePage() {
       </section>
 
       {/* Section 4 Modèles Populaires */}
-      <section className="py-16 sm:py-24 bg-background border-b border-border/40">
+      <section className="py-16 sm:py-24 bg-card border-b border-border/60">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-foreground">
               Nos Modèles Populaires
             </h2>
             <p className="text-pretty text-base sm:text-lg leading-relaxed text-muted-foreground">
-              Découvrez un aperçu de nos plus beaux modèles de mugs personnalisables.
+              Découvrez un aperçu de nos plus beaux modèles.
             </p>
           </div>
 
