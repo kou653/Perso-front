@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -24,7 +23,6 @@ function TemplateCard({ product, template }) {
         </div>
         <Button asChild className="w-full shadow-sm">
           <Link to={`/personnaliser/${product.id}/${template.id}`}>
-            <Sparkles className="mr-2 h-4 w-4" />
             Personnaliser ce modèle
           </Link>
         </Button>

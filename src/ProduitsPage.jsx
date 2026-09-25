@@ -55,7 +55,7 @@ export function ProduitsPage() {
         </div>
 
         <div className="mx-auto max-w-2xl text-center">
-          <h1 className="text-balance text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          <h1 className="text-balance text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground leading-tight">
             Modèles de Mugs
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
@@ -88,13 +88,13 @@ export function ProduitsPage() {
         )}
 
         <div className="mx-auto mt-24 max-w-3xl rounded-2xl bg-card p-8 text-center shadow-lg">
-          <h2 className="text-2xl font-bold text-foreground">Comment ça marche ?</h2>
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-foreground">Comment ça marche ?</h2>
           <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-3">
             <div>
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary text-xl font-bold text-primary-foreground">
                 1
               </div>
-              <h3 className="mt-4 font-semibold text-foreground">Choisissez un modèle</h3>
+              <h3 className="mt-4 text-base sm:text-lg font-semibold text-foreground">Choisissez un modèle</h3>
               <p className="mt-2 text-sm text-muted-foreground">
                 Parcourez nos modèles avec des exemples de personnalisation déjà appliqués.
               </p>
@@ -103,7 +103,7 @@ export function ProduitsPage() {
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary text-xl font-bold text-primary-foreground">
                 2
               </div>
-              <h3 className="mt-4 font-semibold text-foreground">Entrez vos informations</h3>
+              <h3 className="mt-4 text-base sm:text-lg font-semibold text-foreground">Entrez vos informations</h3>
               <p className="mt-2 text-sm text-muted-foreground">
                 Remplacez les informations d'exemple par les vôtres (nom, entreprise, message...).
               </p>
@@ -112,7 +112,7 @@ export function ProduitsPage() {
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary text-xl font-bold text-primary-foreground">
                 3
               </div>
-              <h3 className="mt-4 font-semibold text-foreground">Commander</h3>
+              <h3 className="mt-4 text-base sm:text-lg font-semibold text-foreground">Commander</h3>
               <p className="mt-2 text-sm text-muted-foreground">
                 Validez votre commande et nous nous occupons du reste.
               </p>

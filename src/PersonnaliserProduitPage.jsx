@@ -302,7 +302,7 @@ export function PersonnaliserProduitPage() {
             {/* Titre & Étape */}
             <div className="text-center space-y-2">
               <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3.5 py-1 text-xs font-semibold text-primary">
-                <Sparkles className="h-3.5 w-3.5" /> Étape 2 sur 2 • Récapitulatif
+                Étape 2 sur 2 • Récapitulatif
               </div>
               <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
                 Récapitulatif de votre commande
@@ -511,7 +511,7 @@ export function PersonnaliserProduitPage() {
               {/* Section : Éléments du modèle à modifier ou conserver */}
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-base sm:text-lg font-bold text-foreground flex items-center gap-2">
+                  <h3 className="text-base sm:text-lg font-semibold text-foreground flex items-center gap-2">
                     <Edit3 className="h-4 w-4 text-primary" />
                     Éléments du mug ({template.fields.length})
                   </h3>

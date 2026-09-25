@@ -56,7 +56,7 @@ function Step2DescribeDesign({ product, onSubmit, onBack }) {
   return (
     <div>
       <div className="mx-auto max-w-2xl text-center">
-        <h1 className="text-3xl font-bold text-foreground">
+        <h1 className="text-balance text-3xl sm:text-4xl font-bold tracking-tight text-foreground leading-tight">
           Décrivez votre mug
         </h1>
         <p className="mt-4 text-muted-foreground">
@@ -111,7 +111,6 @@ function Step2DescribeDesign({ product, onSubmit, onBack }) {
                     </>
                   ) : (
                     <>
-                      <Sparkles className="mr-2 h-4 w-4" />
                       Générer par IA
                     </>
                   )}

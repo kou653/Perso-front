@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { Menu, X, Sparkles } from "lucide-react";
+import { Menu, X, Coffee } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navItems = [
@@ -16,7 +16,7 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
         <Link to="/" className="flex items-center gap-2">
-          <Sparkles className="h-8 w-8 text-primary" />
+          <Coffee className="h-8 w-8 text-primary" />
           <span className="text-xl font-bold text-foreground">CustomPrint</span>
         </Link>
 

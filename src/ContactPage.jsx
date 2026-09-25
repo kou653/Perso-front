@@ -1,23 +1,45 @@
 import { useState } from "react";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { FieldGroup, Field, FieldLabel } from "@/components/ui/field";
+import { COUNTRIES, DEFAULT_COUNTRY } from "./lib/countries";
 
 export function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
+    phone: "",
     subject: "",
     message: "",
   });
+  const [selectedCountryCode, setSelectedCountryCode] = useState(DEFAULT_COUNTRY.code);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [phoneError, setPhoneError] = useState("");
+
+  const selectedCountry = COUNTRIES.find((c) => c.code === selectedCountryCode) || DEFAULT_COUNTRY;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setPhoneError("");
+
+    const requiredDigits = selectedCountry.digitsCount;
+    const cleanPhone = formData.phone.replace(/\D/g, "");
+
+    if (!cleanPhone) {
+      setPhoneError("Veuillez renseigner votre numéro de téléphone.");
+      return;
+    }
+
+    if (cleanPhone.length !== requiredDigits) {
+      setPhoneError(
+        `Le numéro de téléphone pour ${selectedCountry.name} (${selectedCountry.dialCode}) doit comporter exactement ${requiredDigits} chiffres (actuellement ${cleanPhone.length}).`
+      );
+      return;
+    }
+
     setIsSubmitting(true);
     
     // Simulate form submission
@@ -25,14 +47,14 @@ export function ContactPage() {
     
     setIsSubmitting(false);
     setSubmitted(true);
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    setFormData({ name: "", phone: "", subject: "", message: "" });
   };
 
   return (
     <div className="py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h1 className="text-balance text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          <h1 className="text-balance text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground leading-tight">
             Contactez-nous
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
@@ -40,59 +62,10 @@ export function ContactPage() {
           </p>
         </div>
 
-        <div className="mx-auto mt-16 grid max-w-5xl grid-cols-1 gap-8 lg:grid-cols-2">
-          <div className="space-y-6">
-            <Card className="border-border/50">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3">
-                  <Mail className="h-5 w-5 text-primary" />
-                  Email
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <a href="mailto:contact@customprint.fr" className="text-muted-foreground hover:text-primary">
-                  contact@customprint.fr
-                </a>
-              </CardContent>
-            </Card>
-
-            <Card className="border-border/50">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3">
-                  <Phone className="h-5 w-5 text-primary" />
-                  Téléphone
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <a href="tel:+33123456789" className="text-muted-foreground hover:text-primary">
-                  +33 1 23 45 67 89
-                </a>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  Du lundi au vendredi, 9h-18h
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-border/50">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3">
-                  <MapPin className="h-5 w-5 text-primary" />
-                  Adresse
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  123 Rue de la Création
-                  <br />
-                  75001 Paris, France
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-
-          <Card className="border-border/50">
+        <div className="mx-auto mt-12 max-w-2xl">
+          <Card className="border-border/50 shadow-sm">
             <CardHeader>
-              <CardTitle>Envoyez-nous un message</CardTitle>
+              <CardTitle className="text-xl">Envoyez-nous un message</CardTitle>
             </CardHeader>
             <CardContent>
               {submitted ? (
@@ -107,7 +80,10 @@ export function ContactPage() {
                   <Button
                     className="mt-4"
                     variant="outline"
-                    onClick={() => setSubmitted(false)}
+                    onClick={() => {
+                      setSubmitted(false);
+                      setPhoneError("");
+                    }}
                   >
                     Envoyer un autre message
                   </Button>
@@ -128,25 +104,78 @@ export function ContactPage() {
                     </Field>
 
                     <Field>
-                      <FieldLabel htmlFor="email">Email</FieldLabel>
-                      <Input
-                        id="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        required
-                        placeholder="jean@exemple.fr"
-                      />
+                      <FieldLabel htmlFor="phone" className="flex items-center justify-between">
+                        <span>Numéro de téléphone</span>
+                        <span className="text-[10px] text-muted-foreground font-normal">
+                          ({selectedCountry.digitsCount} chiffres requis)
+                        </span>
+                      </FieldLabel>
+                      
+                      <div className={`relative flex items-center h-10 rounded-md border bg-background shadow-xs focus-within:ring-2 transition-all overflow-hidden ${
+                        phoneError ? "border-destructive focus-within:ring-destructive" : "border-input focus-within:ring-ring focus-within:border-primary"
+                      }`}>
+                        {/* Sélecteur compact avec uniquement drapeau + indicatif */}
+                        <div className="relative shrink-0 border-r border-input bg-muted/40 hover:bg-muted/70 transition-colors flex items-center">
+                          <div className="px-2.5 py-1.5 flex items-center gap-1 text-xs sm:text-sm font-semibold text-foreground select-none pointer-events-none">
+                            <span>{selectedCountry.flag}</span>
+                            <span>{selectedCountry.dialCode}</span>
+                            <span className="text-muted-foreground text-[8px] ml-0.5">▼</span>
+                          </div>
+                          <select
+                            id="country-select"
+                            value={selectedCountryCode}
+                            onChange={(e) => {
+                              setSelectedCountryCode(e.target.value);
+                              if (phoneError) setPhoneError("");
+                            }}
+                            aria-label="Sélectionner le pays"
+                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                          >
+                            {COUNTRIES.map((c) => (
+                              <option key={c.code} value={c.code}>
+                                {c.flag} {c.dialCode} - {c.name} ({c.digitsCount} chiffres)
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        {/* Saisie directe du numéro (chiffres uniquement et longueur exacte) */}
+                        <div className="flex-1 flex items-center">
+                          <input
+                            id="phone"
+                            type="tel"
+                            inputMode="numeric"
+                            pattern="[0-9]*"
+                            minLength={selectedCountry.digitsCount}
+                            maxLength={selectedCountry.digitsCount}
+                            required
+                            placeholder={selectedCountry.placeholder ? selectedCountry.placeholder.replace(/\s/g, '') : '012345678'}
+                            value={formData.phone}
+                            onChange={(e) => {
+                              const val = e.target.value.replace(/\D/g, '').slice(0, selectedCountry.digitsCount);
+                              setFormData({ ...formData, phone: val });
+                              if (phoneError) setPhoneError("");
+                            }}
+                            className="w-full h-10 px-3 bg-transparent text-sm font-medium text-foreground placeholder:text-muted-foreground/60 focus:outline-none"
+                          />
+                        </div>
+                      </div>
+
+                      {phoneError && (
+                        <p className="mt-1.5 text-xs text-destructive font-medium flex items-center gap-1">
+                          <span className="inline-block h-1.5 w-1.5 rounded-full bg-destructive" />
+                          {phoneError}
+                        </p>
+                      )}
                     </Field>
 
                     <Field>
-                      <FieldLabel htmlFor="subject">Sujet</FieldLabel>
+                      <FieldLabel htmlFor="subject">Sujet <span className="text-xs font-normal text-muted-foreground">(optionnel)</span></FieldLabel>
                       <Input
                         id="subject"
                         type="text"
                         value={formData.subject}
                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                        required
                         placeholder="Votre sujet"
                       />
                     </Field>

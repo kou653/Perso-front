@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Sparkles, Palette, Truck, Bot } from "lucide-react";
+import { ArrowRight, Palette, Truck, Sliders } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -13,9 +13,9 @@ const mug = {
 
 const features = [
   {
-    icon: Bot,
-    title: "Détection IA Intelligente",
-    description: "L'IA analyse le modèle de mug choisi et détecte automatiquement les zones à personnaliser.",
+    icon: Sliders,
+    title: "Détection Intelligente",
+    description: "Le système analyse le modèle de mug choisi et détecte automatiquement les zones à personnaliser.",
   },
   {
     icon: Palette,
@@ -61,13 +61,13 @@ export function HomePage() {
         <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:flex lg:items-center lg:gap-x-10 lg:px-8 lg:py-36">
           <div className="mx-auto max-w-2xl lg:mx-0 lg:flex-auto">
             <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary mb-4">
-              <Sparkles className="h-3.5 w-3.5" /> Personnalisation Assistée par IA
+              Personnalisation Sur-Mesure
             </div>
-            <h1 className="text-balance text-4xl font-bold tracking-tight text-foreground sm:text-6xl">
-              Votre mug personnalisé avec l'IA
+            <h1 className="text-balance text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground leading-tight">
+              Votre mug personnalisé sur-mesure
             </h1>
             <p className="mt-6 text-pretty text-lg leading-relaxed text-muted-foreground">
-              Choisissez un modèle parmi notre collection. Notre intelligence artificielle détecte automatiquement chaque élément (textes, photos, prénoms, dates) et vous permet de les remplacer ou de conserver l'original.
+              Choisissez un modèle parmi notre collection. Notre système détecte automatiquement chaque élément (textes, photos, prénoms, dates) et vous permet de les remplacer ou de conserver l'original.
             </p>
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <Button size="lg" asChild className="shadow-md">
@@ -95,10 +95,10 @@ export function HomePage() {
       <section className="py-16 sm:py-20 bg-background border-b border-border/40">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-10 space-y-1">
-            <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-foreground">
               Nos Modèles Populaires
             </h2>
-            <p className="text-sm text-muted-foreground">
+            <p className="mt-4 text-pretty text-lg leading-relaxed text-muted-foreground">
               Découvrez un aperçu de nos plus beaux modèles de mugs personnalisables.
             </p>
           </div>
@@ -123,7 +123,6 @@ export function HomePage() {
                   </div>
                   <Button asChild className="w-full shadow-sm">
                     <Link to={`/personnaliser/mug/${item.id}`}>
-                      <Sparkles className="mr-2 h-4 w-4" />
                       Personnaliser ce modèle
                     </Link>
                   </Button>
@@ -147,10 +146,10 @@ export function HomePage() {
       <section className="bg-card py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-balance text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            <h2 className="text-balance text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-foreground">
               Comment fonctionne l'IA CustomPrint ?
             </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
+            <p className="mt-4 text-pretty text-lg leading-relaxed text-muted-foreground">
               Une expérience fluide en 3 étapes simples.
             </p>
           </div>
@@ -166,28 +165,6 @@ export function HomePage() {
                 </CardContent>
               </Card>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="bg-primary">
-        <div className="mx-auto max-w-7xl px-6 py-20 sm:py-24 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-balance text-3xl font-bold tracking-tight text-primary-foreground sm:text-4xl">
-              Prêt à créer votre mug unique ?
-            </h2>
-            <p className="mt-6 text-lg leading-relaxed text-primary-foreground/80">
-              Parcourez nos modèles de mugs et laissez l'IA vous guider pour y intégrer vos souvenirs et vos mots doux.
-            </p>
-            <div className="mt-10">
-              <Button size="lg" variant="secondary" asChild className="shadow-lg font-semibold">
-                <Link to="/produits">
-                  Explorer la collection des modèles
-                  <Sparkles className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
           </div>
         </div>
       </section>
