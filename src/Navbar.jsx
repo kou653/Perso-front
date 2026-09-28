@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { Menu, X, Coffee } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 const navItems = [
   { name: "Accueil", href: "/" },
@@ -16,12 +16,7 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-md transition-all">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
         <Link to="/" className="flex items-center gap-2.5 group">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary transition-transform group-hover:scale-105">
-            <Coffee className="h-5 w-5" />
-          </div>
-          <span className="text-xl font-bold tracking-tight text-foreground group-hover:text-primary transition-colors">
-            CustomPrint
-          </span>
+          <img src="/logo/FullLogo.png" alt="CustomPrint" className="h-9 sm:h-10 w-auto object-contain transition-transform group-hover:scale-[1.02]" />
         </Link>
 
         {/* Desktop Navigation */}
