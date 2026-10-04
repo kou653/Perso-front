@@ -158,86 +158,103 @@ export function PersonnaliserProduitPage() {
   const handleConfirmOrder = async () => {
     setIsSubmitting(true);
 
-    // Build final values: if not customized, keeps default original value
-    const finalValues = {};
-    const detailedSummary = [];
-
-    template.fields.forEach((f) => {
-      const state = fieldStates[f.key];
-      const origVal = template.example?.[f.key] ?? f.originalValue ?? '';
-      const finalVal = (state?.isCustomized && state?.value?.trim()) ? state.value : origVal;
-      
-      finalValues[f.key] = finalVal;
-      detailedSummary.push({
-        key: f.key,
-        label: f.label,
-        type: f.type,
-        isCustomized: Boolean(state?.isCustomized),
-        originalValue: origVal,
-        finalValue: state?.isCustomized ? (state.fileName || finalVal) : origVal,
-      });
-    });
-
-    const fullPhone = `${selectedCountry.dialCode} ${customerPhone.trim()}`;
-
-    const payload = {
-      product_id: 1, // mug
-      template_slug: template.id,
-      customer_name: customerName.trim() || 'Client',
-      delivery_location: deliveryLocation.trim(),
-      customer_phone: fullPhone,
-      customization_data: finalValues,
-      summary: {
-        template_name: template.name,
-        price: product.price,
-        customized_count: customizedCount,
-        preserved_count: preservedCount,
-        detailed_fields: detailedSummary,
-      },
-    };
-
     try {
-      const response = await fetch('/api/projects', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
+      const fullPhone = `${selectedCountry.dialCode} ${customerPhone.trim()}`;
+      
+      // ==========================================
+      // 1. Upload des images personnalisées sur ImgBB
+      // ==========================================
+      const uploadedImageLinks = {}; // Stocke les URLs retournées par ImgBB
 
-      if (response.ok) {
-        const result = await response.json();
-        setCreatedProject(result.data || payload);
-      } else {
-        // Fallback simulation
-        setCreatedProject({
-          id: 'CMD-' + Math.floor(100000 + Math.random() * 900000),
-          customer_name: customerName.trim() || 'Client',
-          delivery_location: deliveryLocation.trim(),
-          customer_phone: fullPhone,
-          selected_country: selectedCountry,
-          product: { name: product.name },
-          status: 'transmitted_to_admin',
-          ...payload,
-        });
+      for (const f of template.fields) {
+        const state = fieldStates[f.key];
+        const isMod = state?.isCustomized;
+
+        // Si l'utilisateur a uploadé une nouvelle image
+        if (isMod && f.type === 'image' && state?.value) {
+          try {
+            // L'image locale est en Base64 : "data:image/jpeg;base64,iVBORw0KGgo..."
+            // ImgBB requiert uniquement la partie après la virgule
+            const base64Data = state.value.split(',')[1];
+            
+            const formData = new FormData();
+            formData.append('key', '7ca87b78a24ab47707e0b4b228e84275'); // Clé API ImgBB
+            formData.append('image', base64Data);
+            
+            const response = await fetch('https://api.imgbb.com/1/upload', {
+              method: 'POST',
+              body: formData
+            });
+
+            const data = await response.json();
+            
+            if (data.success) {
+              uploadedImageLinks[f.key] = data.data.url; // URL de l'image hébergée
+            } else {
+              console.error("Erreur ImgBB:", data);
+              uploadedImageLinks[f.key] = "⚠️ Erreur lors de l'envoi de la photo";
+            }
+          } catch (error) {
+            console.error("Erreur réseau ImgBB:", error);
+            uploadedImageLinks[f.key] = "⚠️ Échec de connexion au serveur d'image";
+          }
+        }
       }
-    } catch (err) {
-      // Offline / dev fallback
-      setCreatedProject({
-        id: 'CMD-' + Math.floor(100000 + Math.random() * 900000),
-        customer_name: customerName.trim() || 'Client',
-        delivery_location: deliveryLocation.trim(),
-        customer_phone: fullPhone,
-        selected_country: selectedCountry,
-        product: { name: product.name },
-        status: 'transmitted_to_admin',
-        ...payload,
-      });
-    } finally {
-      setIsSubmitting(false);
+
+      // ==========================================
+      // 2. Construction du message WhatsApp professionnel
+      // ==========================================
+      let orderDetailsText = `🛍️ *NOUVELLE COMMANDE CUSTOMPRINT* 🛍️\n\n`;
+      orderDetailsText += `📦 *Produit :* ${product.name} - ${template.name}\n`;
+      orderDetailsText += `💰 *Prix :* ${product.price}\n\n`;
+
+      orderDetailsText += `👤 *INFORMATIONS CLIENT*\n`;
+      orderDetailsText += `- Nom : ${customerName.trim() || 'Client'}\n`;
+      orderDetailsText += `- Téléphone : ${fullPhone}\n`;
+      orderDetailsText += `- Livraison : ${deliveryLocation.trim()}\n\n`;
+
+      orderDetailsText += `🎨 *DÉTAILS DE PERSONNALISATION*\n`;
+
+      for (const f of template.fields) {
+        const state = fieldStates[f.key];
+        const origVal = template.example?.[f.key] ?? f.originalValue ?? '';
+        const isMod = state?.isCustomized;
+        
+        let displayVal = origVal;
+
+        if (isMod) {
+          if (f.type === 'image') {
+            // Utilise le lien ImgBB généré lors de l'étape précédente
+            displayVal = uploadedImageLinks[f.key] 
+              ? `📸 ${uploadedImageLinks[f.key]}`
+              : `📸 [Image non transmise]`;
+          } else {
+            displayVal = state.value;
+          }
+        }
+
+        orderDetailsText += `- ${f.label} : *${displayVal}* ${isMod ? '(Modifié)' : '(Défaut)'}\n`;
+      }
+
+      orderDetailsText += `\nMerci de confirmer la bonne réception de ma commande !`;
+
+      // Redirection vers WhatsApp
+      const adminPhone = "2250595745090"; // Numéro validé par l'utilisateur
+      const encodedText = encodeURIComponent(orderDetailsText);
+      const whatsappUrl = `https://wa.me/${adminPhone}?text=${encodedText}`;
+
+      // Ouvre WhatsApp dans un nouvel onglet
+      window.open(whatsappUrl, '_blank');
+
+      // Met à jour l'interface locale vers le succès
       setViewStep('success');
       window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    } catch (err) {
+      console.error("Erreur lors de la préparation de la commande:", err);
+      setValidationError("Une erreur est survenue lors de la préparation de votre commande.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
