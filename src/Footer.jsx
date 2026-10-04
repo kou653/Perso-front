@@ -42,7 +42,7 @@ export function Footer() {
       {/* Bas de page Copyright neutre */}
       <div className="mx-auto max-w-7xl px-6 py-6 text-center">
         <p className="text-xs sm:text-sm text-muted-foreground font-normal">
-          © {new Date().getFullYear()} CustomPrint. Tous droits réservés.
+          © {new Date().getFullYear()} KRS. Tous droits réservés.
         </p>
       </div>
     </footer>

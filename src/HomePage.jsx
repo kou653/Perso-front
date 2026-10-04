@@ -125,7 +125,7 @@ export function HomePage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center space-y-2">
             <h2 className="text-balance text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-foreground">
-              Comment fonctionne CustomPrint ?
+              Comment fonctionne KRS ?
             </h2>
             <p className="text-pretty text-[15px] sm:text-base text-muted-foreground/90 font-medium">
               Une expérience fluide et intuitive en 3 étapes simples.

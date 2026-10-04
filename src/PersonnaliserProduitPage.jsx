@@ -204,7 +204,7 @@ export function PersonnaliserProduitPage() {
       // ==========================================
       // 2. Construction du message WhatsApp professionnel
       // ==========================================
-      let orderDetailsText = `🛍️ *NOUVELLE COMMANDE CUSTOMPRINT* 🛍️\n\n`;
+      let orderDetailsText = `🛍️ *NOUVELLE COMMANDE KRS* 🛍️\n\n`;
       orderDetailsText += `📦 *Produit :* ${product.name} - ${template.name}\n`;
       orderDetailsText += `💰 *Prix :* ${product.price}\n\n`;
 
