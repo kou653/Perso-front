@@ -128,6 +128,14 @@ export function PersonnaliserProduitPage() {
     setValidationError(null);
 
     // Validation stricte des champs obligatoires
+    // 1. Validation des images (obligatoire)
+    for (const f of template.fields) {
+      if (f.type === 'image' && !fieldStates[f.key]?.isCustomized) {
+        setValidationError(`Veuillez ajouter votre photo pour : ${f.label}`);
+        return;
+      }
+    }
+
     if (!deliveryLocation.trim()) {
       setValidationError('Veuillez renseigner votre lieu de livraison.');
       document.getElementById('delivery-location')?.focus();
@@ -238,7 +246,58 @@ export function PersonnaliserProduitPage() {
 
       orderDetailsText += `\nMerci de confirmer la bonne réception de ma commande !`;
 
-      // Redirection vers WhatsApp
+      // ==========================================
+      // 3. Envoi de la commande vers Google Sheets (Historique)
+      // ==========================================
+      const scriptUrl = "https://script.google.com/macros/s/AKfycbxn70lAUY90eerektwDfRXTg8ImxRvQrxyXpsEja2tSLJ5_iwdSyoZjgdZthvIAQAkBgA/exec";
+      
+      let personnalisationTexte = "";
+      let imagePrincipale = "";
+      
+      for (const f of template.fields) {
+        const state = fieldStates[f.key];
+        const isMod = state?.isCustomized;
+        let displayVal = template.example?.[f.key] ?? f.originalValue ?? '';
+        
+        if (isMod) {
+          if (f.type === 'image') {
+            displayVal = uploadedImageLinks[f.key] || "[Image non transmise]";
+            if (!imagePrincipale && uploadedImageLinks[f.key]) {
+              imagePrincipale = uploadedImageLinks[f.key];
+            }
+          } else {
+            displayVal = state.value;
+          }
+        }
+        personnalisationTexte += `${f.label}: ${displayVal} | `;
+      }
+
+      const googleSheetPayload = {
+        client: customerName.trim() || 'Client',
+        telephone: fullPhone,
+        livraison: deliveryLocation.trim(),
+        produit: `${product.name} - ${template.name}`,
+        personnalisation: personnalisationTexte,
+        image: imagePrincipale
+      };
+
+      try {
+        await fetch(scriptUrl, {
+          method: "POST",
+          mode: "no-cors", // Requis pour éviter les erreurs CORS de Google Scripts depuis le navigateur
+          headers: {
+            "Content-Type": "text/plain",
+          },
+          body: JSON.stringify(googleSheetPayload)
+        });
+      } catch (err) {
+        console.error("Erreur sauvegarde Google Sheets", err);
+        // On ne bloque pas la commande même si la sauvegarde historique échoue
+      }
+
+      // ==========================================
+      // 4. Redirection vers WhatsApp
+      // ==========================================
       const adminPhone = "2250595745090"; // Numéro validé par l'utilisateur
       const encodedText = encodeURIComponent(orderDetailsText);
       const whatsappUrl = `https://wa.me/${adminPhone}?text=${encodedText}`;
@@ -560,6 +619,7 @@ export function PersonnaliserProduitPage() {
                                 {index + 1}
                               </span>
                               {field.label}
+                              {field.type === 'image' && <span className="text-destructive font-bold ml-1">*</span>}
                             </Label>
                             {field.description && (
                               <p className="text-xs text-muted-foreground mt-0.5">{field.description}</p>
@@ -574,16 +634,18 @@ export function PersonnaliserProduitPage() {
                                 variant="ghost"
                                 size="sm"
                                 onClick={() => handleResetToOriginal(field.key)}
-                                className="h-7 text-xs text-muted-foreground hover:text-foreground"
+                                className="h-7 text-xs text-muted-foreground hover:text-foreground cursor-pointer"
                               >
                                 <RotateCcw className="h-3 w-3 mr-1" />
-                                Rétablir la valeur par défaut
+                                {field.type === 'image' ? 'Retirer la photo' : 'Rétablir la valeur par défaut'}
                               </Button>
                             ) : (
-                              <span className="inline-flex items-center gap-1 rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground border">
-                                <Lock className="h-3 w-3" />
-                                Modèle par défaut conservé
-                              </span>
+                              field.type !== 'image' && (
+                                <span className="inline-flex items-center gap-1 rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground border">
+                                  <Lock className="h-3 w-3" />
+                                  Modèle par défaut conservé
+                                </span>
+                              )
                             )}
                           </div>
                         </div>

@@ -59,7 +59,7 @@ export function HomePage() {
               Personnalisation Sur-Mesure
             </div>
             <h1 className="text-balance text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground leading-tight sm:leading-tight">
-              Votre mug personnalisé sur-mesure
+              Votre tasse personnalisée sur-mesure
             </h1>
             <p className="mt-6 text-pretty text-[15px] sm:text-[17px] leading-relaxed text-muted-foreground/90 font-medium">
               Choisissez un modèle parmi notre collection. Notre système détecte automatiquement chaque élément et vous permet de les remplacer ou de conserver l'original.
@@ -67,7 +67,7 @@ export function HomePage() {
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
               <Button size="lg" asChild className="shadow-md font-semibold cursor-pointer">
                 <Link to="/produits">
-                  Choisir un modèle de mug
+                  Choisir un modèle de tasse
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
@@ -79,7 +79,7 @@ export function HomePage() {
               <div className="absolute -inset-4 rounded-3xl bg-gradient-to-r from-primary/30 via-primary/15 to-accent/30 blur-2xl opacity-80" />
               <img
                 src="/model/mug-photo-souvenir.jpg"
-                alt="Mug personnalisé"
+                alt="Tasse personnalisée"
                 className="relative rounded-2xl shadow-2xl w-full h-auto object-cover border border-border/60"
               />
             </div>

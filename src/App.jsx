@@ -8,6 +8,8 @@ import { PersonnaliserProduitPage } from './PersonnaliserProduitPage'
 import { ContactPage } from './ContactPage'
 import { Footer } from './Footer'
 
+import { AdminHistoryPage } from './AdminHistoryPage'
+
 function ScrollToTop() {
   const { pathname } = useLocation()
 
@@ -30,6 +32,7 @@ function App() {
           <Route path="/personnaliser" element={<Navigate to="/produits" replace />} />
           <Route path="/personnaliser/:productId/:templateId" element={<PersonnaliserProduitPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/admin/historique" element={<AdminHistoryPage />} />
         </Routes>
       </main>
       <Footer />
