@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useLocation, Routes, Route, Navigate } from 'react-router-dom'
-import './App.css'
+
 import { Navbar } from './Navbar'
 import { HomePage } from './HomePage'
 import { ProduitsPage } from './ProduitsPage'
@@ -8,6 +8,7 @@ import { PersonnaliserProduitPage } from './PersonnaliserProduitPage'
 import { ContactPage } from './ContactPage'
 import { Footer } from './Footer'
 
+import { AProposPage } from './AProposPage'
 import { AdminHistoryPage } from './AdminHistoryPage'
 
 function ScrollToTop() {
@@ -31,6 +32,7 @@ function App() {
           <Route path="/produits" element={<ProduitsPage />} />
           <Route path="/personnaliser" element={<Navigate to="/produits" replace />} />
           <Route path="/personnaliser/:productId/:templateId" element={<PersonnaliserProduitPage />} />
+          <Route path="/apropos" element={<AProposPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/admin/historique" element={<AdminHistoryPage />} />
         </Routes>

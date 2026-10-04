@@ -12,7 +12,7 @@ export function Footer() {
             Prêt à créer votre mug unique ?
           </h2>
           <p className="text-[15px] sm:text-[17px] leading-relaxed text-primary-foreground/90 max-w-2xl mx-auto font-medium">
-            Parcourez nos modèles de mugs et soyez guidés pour y intégrer vos souvenirs et vos mots doux.
+            Trouvez le modèle qui vous correspond et ajoutez-y votre touche personnelle.
           </p>
 
           <div className="pt-2">
@@ -31,6 +31,9 @@ export function Footer() {
             </Link>
             <Link to="/produits" className="text-sm font-medium text-primary-foreground/90 transition-all hover:text-white hover:underline">
               Modèles
+            </Link>
+            <Link to="/apropos" className="text-sm font-medium text-primary-foreground/90 transition-all hover:text-white hover:underline">
+              À Propos
             </Link>
             <Link to="/contact" className="text-sm font-medium text-primary-foreground/90 transition-all hover:text-white hover:underline">
               Contact

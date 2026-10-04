@@ -171,10 +171,20 @@ export function AdminHistoryPage() {
                       {order.Personnalisation}
                     </td>
                     <td className="px-6 py-4 text-center">
-                      {order['Lien Image'] && order['Lien Image'].startsWith('http') ? (
-                        <a href={order['Lien Image']} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center p-2 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors" title="Voir l'image">
-                          <ImageIcon className="h-5 w-5" />
-                        </a>
+                      {order['Lien Image'] ? (
+                        <div className="flex items-center justify-center gap-2 flex-wrap">
+                          {order['Lien Image'].split(',').map((link, i) => {
+                            const url = link.trim();
+                            if (url.startsWith('http')) {
+                              return (
+                                <a key={i} href={url} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center p-2 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors" title={`Voir l'image ${i + 1}`}>
+                                  <ImageIcon className="h-5 w-5" />
+                                </a>
+                              );
+                            }
+                            return null;
+                          })}
+                        </div>
                       ) : (
                         <span className="text-muted-foreground/50">-</span>
                       )}

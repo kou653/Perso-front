@@ -27,11 +27,21 @@ export function ProduitsPage() {
   );
 
   return (
-    <div className="py-12 sm:py-20">
+    <div className="pt-6 pb-12 sm:pt-10 sm:pb-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         
-        {/* Barre de recherche compacte et élégante (en haut) */}
-        <div className="mx-auto max-w-lg mb-8">
+        {/* Titre de la page */}
+        <div className="mx-auto max-w-2xl text-center space-y-2 mb-8">
+          <h1 className="text-balance text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground leading-tight">
+            Modèles de Mugs
+          </h1>
+          <p className="text-pretty text-[15px] sm:text-[17px] text-muted-foreground/90 font-medium leading-relaxed">
+            Choisissez un modèle parmi notre collection et remplacez les informations par les vôtres.
+          </p>
+        </div>
+
+        {/* Barre de recherche compacte et élégante */}
+        <div className="mx-auto max-w-lg mb-10">
           <div className="relative flex items-center shadow-xs rounded-full group">
             <Search className="absolute left-4 h-4 w-4 text-muted-foreground pointer-events-none group-focus-within:text-primary transition-colors" />
             <Input
@@ -52,15 +62,6 @@ export function ProduitsPage() {
               </button>
             )}
           </div>
-        </div>
-
-        <div className="mx-auto max-w-2xl text-center space-y-2 mb-12">
-          <h1 className="text-balance text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground leading-tight">
-            Modèles de Mugs
-          </h1>
-          <p className="text-pretty text-[15px] sm:text-[17px] text-muted-foreground/90 font-medium leading-relaxed">
-            Choisissez un modèle parmi notre collection et remplacez les informations par les vôtres.
-          </p>
         </div>
 
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

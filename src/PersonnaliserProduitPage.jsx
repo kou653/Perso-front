@@ -252,7 +252,7 @@ export function PersonnaliserProduitPage() {
       const scriptUrl = "https://script.google.com/macros/s/AKfycbxn70lAUY90eerektwDfRXTg8ImxRvQrxyXpsEja2tSLJ5_iwdSyoZjgdZthvIAQAkBgA/exec";
       
       let personnalisationTexte = "";
-      let imagePrincipale = "";
+      let toutesLesImages = [];
       
       for (const f of template.fields) {
         const state = fieldStates[f.key];
@@ -262,8 +262,8 @@ export function PersonnaliserProduitPage() {
         if (isMod) {
           if (f.type === 'image') {
             displayVal = uploadedImageLinks[f.key] || "[Image non transmise]";
-            if (!imagePrincipale && uploadedImageLinks[f.key]) {
-              imagePrincipale = uploadedImageLinks[f.key];
+            if (uploadedImageLinks[f.key]) {
+              toutesLesImages.push(uploadedImageLinks[f.key]);
             }
           } else {
             displayVal = state.value;
@@ -274,11 +274,11 @@ export function PersonnaliserProduitPage() {
 
       const googleSheetPayload = {
         client: customerName.trim() || 'Client',
-        telephone: fullPhone,
+        telephone: `'${fullPhone}`, // L'apostrophe empêche Google Sheets de lire le + comme une formule
         livraison: deliveryLocation.trim(),
         produit: `${product.name} - ${template.name}`,
         personnalisation: personnalisationTexte,
-        image: imagePrincipale
+        image: toutesLesImages.join(', ') // Joint tous les liens d'images séparés par une virgule
       };
 
       try {
