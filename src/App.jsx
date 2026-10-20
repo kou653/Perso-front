@@ -22,20 +22,24 @@ function ScrollToTop() {
 }
 
 function App() {
+  const location = useLocation()
+
   return (
     <div className="font-sans antialiased min-h-screen flex flex-col bg-background text-foreground">
       <ScrollToTop />
       <Navbar />
       <main className="flex-1">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/produits" element={<ProduitsPage />} />
-          <Route path="/personnaliser" element={<Navigate to="/produits" replace />} />
-          <Route path="/personnaliser/:productId/:templateId" element={<PersonnaliserProduitPage />} />
-          <Route path="/apropos" element={<AProposPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/admin/historique" element={<AdminHistoryPage />} />
-        </Routes>
+        <div key={location.pathname} className="page-transition">
+          <Routes location={location}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/produits" element={<ProduitsPage />} />
+            <Route path="/personnaliser" element={<Navigate to="/produits" replace />} />
+            <Route path="/personnaliser/:productId/:templateId" element={<PersonnaliserProduitPage />} />
+            <Route path="/apropos" element={<AProposPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/admin/historique" element={<AdminHistoryPage />} />
+          </Routes>
+        </div>
       </main>
       <Footer />
     </div>
