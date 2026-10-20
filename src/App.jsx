@@ -26,6 +26,7 @@ function App() {
 
   return (
     <div className="font-sans antialiased min-h-screen flex flex-col bg-background text-foreground">
+      <div key={`progress-${location.pathname}`} className="top-progress-bar" />
       <ScrollToTop />
       <Navbar />
       <main className="flex-1">
