@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Lock, Search, Download, RefreshCw, AlertCircle, ExternalLink, Image as ImageIcon } from 'lucide-react';
+import { Lock, Search, RefreshCw, AlertCircle, ExternalLink, Image as ImageIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxn70lAUY90eerektwDfRXTg8ImxRvQrxyXpsEja2tSLJ5_iwdSyoZjgdZthvIAQAkBgA/exec";
 
@@ -29,7 +29,7 @@ export function AdminHistoryPage() {
         setOrders(data.reverse());
         setIsAuthenticated(true);
       }
-    } catch (err) {
+    } catch {
       setErrorMsg("Erreur de connexion au serveur. Vérifiez votre connexion.");
     } finally {
       setIsLoading(false);

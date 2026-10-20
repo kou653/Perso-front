@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { COUNTRIES, DEFAULT_COUNTRY } from "./lib/countries";
 import { 
-  Sparkles, 
   Loader2, 
   Check, 
   ArrowLeft, 
@@ -21,8 +20,6 @@ import {
   Phone, 
   Truck, 
   User, 
-  ShieldCheck, 
-  Send, 
   ChevronRight,
   ShoppingCart
 } from "lucide-react";
@@ -58,7 +55,6 @@ export function PersonnaliserProduitPage() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [createdProject, setCreatedProject] = useState(null);
   const [validationError, setValidationError] = useState(null);
   const fileInputRefs = useRef({});
 
@@ -298,7 +294,7 @@ export function PersonnaliserProduitPage() {
       // ==========================================
       // 4. Redirection vers WhatsApp
       // ==========================================
-      const adminPhone = "2250595745090"; // Numéro validé par l'utilisateur
+      const adminPhone = "2250500416117"; // Numéro administrateur
       const encodedText = encodeURIComponent(orderDetailsText);
       const whatsappUrl = `https://wa.me/${adminPhone}?text=${encodedText}`;
 

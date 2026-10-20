@@ -1,5 +1,3 @@
-import { MUG_MOCKUP } from "./mugMockup";
-
 export const products = {
   mug: {
     id: "mug",
@@ -9,7 +7,6 @@ export const products = {
     price: "14,99 €",
     priceValue: 14.99,
     features: ["Capacité 330ml", "Céramique premium brillante", "Impression HD haute fidélité", "Compatible lave-vaisselle"],
-    mockup: MUG_MOCKUP,
     templates: [
 
       // ─────────────────────────────────────────────────────────────────────
