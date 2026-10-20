@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useLocation, Routes, Route, Navigate } from 'react-router-dom'
+import { AnimatePresence } from 'framer-motion'
 
 import { Navbar } from './Navbar'
 import { HomePage } from './HomePage'
@@ -10,6 +11,7 @@ import { Footer } from './Footer'
 
 import { AProposPage } from './AProposPage'
 import { AdminHistoryPage } from './AdminHistoryPage'
+import { PageTransition } from '@/components/PageTransition'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -29,18 +31,18 @@ function App() {
       <div key={`progress-${location.pathname}`} className="top-progress-bar" />
       <ScrollToTop />
       <Navbar />
-      <main className="flex-1">
-        <div key={location.pathname} className="page-transition">
-          <Routes location={location}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/produits" element={<ProduitsPage />} />
+      <main className="flex-1 flex flex-col">
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<PageTransition><HomePage /></PageTransition>} />
+            <Route path="/produits" element={<PageTransition><ProduitsPage /></PageTransition>} />
             <Route path="/personnaliser" element={<Navigate to="/produits" replace />} />
-            <Route path="/personnaliser/:productId/:templateId" element={<PersonnaliserProduitPage />} />
-            <Route path="/apropos" element={<AProposPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/admin/historique" element={<AdminHistoryPage />} />
+            <Route path="/personnaliser/:productId/:templateId" element={<PageTransition><PersonnaliserProduitPage /></PageTransition>} />
+            <Route path="/apropos" element={<PageTransition><AProposPage /></PageTransition>} />
+            <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
+            <Route path="/admin/historique" element={<PageTransition><AdminHistoryPage /></PageTransition>} />
           </Routes>
-        </div>
+        </AnimatePresence>
       </main>
       <Footer />
     </div>

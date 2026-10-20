@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { ArrowRight, Palette, Truck, Sliders } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -54,68 +55,102 @@ export function HomePage() {
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-primary/15 via-primary/5 to-accent/20 border-b border-border/60 shadow-xs py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 lg:flex lg:items-center lg:gap-x-12">
-          <div className="mx-auto max-w-2xl lg:mx-0 lg:flex-auto">
-            <div className="inline-flex items-center gap-2 rounded-full bg-primary/15 px-3.5 py-1 text-xs font-semibold text-primary mb-6 border border-primary/30">
+          
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="mx-auto max-w-2xl lg:mx-0 lg:flex-auto"
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="inline-flex items-center gap-2 rounded-full bg-primary/15 px-3.5 py-1 text-xs font-semibold text-primary mb-6 border border-primary/30"
+            >
               Personnalisation Sur-Mesure
-            </div>
+            </motion.div>
+            
             <h1 className="text-balance text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground leading-tight sm:leading-tight">
               Votre tasse personnalisée sur-mesure
             </h1>
+            
             <p className="mt-6 text-pretty text-[15px] sm:text-[17px] leading-relaxed text-muted-foreground/90 font-medium">
               Choisissez un modèle parmi notre collection. Notre système détecte automatiquement chaque élément et vous permet de les remplacer ou de conserver l'original.
             </p>
+            
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
-              <Button size="lg" asChild className="shadow-md font-semibold cursor-pointer">
-                <Link to="/produits">
-                  Choisir un modèle de tasse
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                <Button size="lg" asChild className="shadow-md font-semibold cursor-pointer">
+                  <Link to="/produits">
+                    Choisir un modèle de tasse
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="mt-14 lg:mt-0 lg:shrink-0 lg:grow">
-            <div className="relative mx-auto w-[22rem] max-w-full">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-14 lg:mt-0 lg:shrink-0 lg:grow"
+          >
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              className="relative mx-auto w-[22rem] max-w-full"
+            >
               <div className="absolute -inset-4 rounded-3xl bg-gradient-to-r from-primary/30 via-primary/15 to-accent/30 blur-2xl opacity-80" />
               <img
                 src="/model/mug-photo-souvenir.jpg"
                 alt="Tasse personnalisée"
-                className="relative rounded-2xl shadow-2xl w-full h-auto object-cover border border-border/60"
+                className="relative rounded-2xl shadow-2xl w-full h-auto object-cover border border-border/60 transition-transform duration-300 hover:scale-[1.02]"
               />
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* Section 4 Modèles Populaires */}
       <section className="py-16 sm:py-24 bg-card border-b border-border/60">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center max-w-2xl mx-auto mb-12 space-y-2"
+          >
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-foreground">
               Nos Modèles Populaires
             </h2>
             <p className="text-pretty text-[15px] sm:text-base text-muted-foreground/90 font-medium">
               Découvrez un aperçu de nos plus beaux modèles.
             </p>
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredModels.map((item) => (
+            {featuredModels.map((item, index) => (
               <TemplateCard
                 key={item.id}
                 product={mugProduct}
                 template={item}
+                index={index}
               />
             ))}
           </div>
 
           <div className="mt-12 text-center">
-            <Button asChild size="lg" variant="outline" className="shadow-xs font-semibold cursor-pointer">
-              <Link to="/produits">
-                Voir tous les modèles
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
+            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="inline-block">
+              <Button asChild size="lg" variant="outline" className="shadow-xs font-semibold cursor-pointer">
+                <Link to="/produits">
+                  Voir tous les modèles
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -123,31 +158,46 @@ export function HomePage() {
       {/* Features Section */}
       <section className="bg-muted/30 py-12 sm:py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center space-y-2">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="mx-auto max-w-2xl text-center space-y-2"
+          >
             <h2 className="text-balance text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-foreground">
               Comment fonctionne KRS ?
             </h2>
             <p className="text-pretty text-[15px] sm:text-base text-muted-foreground/90 font-medium">
               Une expérience fluide et intuitive en 3 étapes simples.
             </p>
-          </div>
+          </motion.div>
 
           <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <Card key={feature.title} className="border-border/60 bg-card shadow-sm hover:shadow-md transition-shadow rounded-2xl">
-                <CardContent className="p-8 space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                      <feature.icon className="h-6 w-6" />
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.12 }}
+                whileHover={{ y: -5 }}
+              >
+                <Card className="border-border/60 bg-card shadow-sm hover:shadow-md transition-shadow rounded-2xl h-full">
+                  <CardContent className="p-8 space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                        <feature.icon className="h-6 w-6" />
+                      </div>
+                      <span className="text-2xl font-bold text-muted-foreground/30">
+                        0{index + 1}
+                      </span>
                     </div>
-                    <span className="text-2xl font-bold text-muted-foreground/30">
-                      0{index + 1}
-                    </span>
-                  </div>
-                  <h3 className="text-lg font-semibold text-foreground">{feature.title}</h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">{feature.description}</p>
-                </CardContent>
-              </Card>
+                    <h3 className="text-lg font-semibold text-foreground">{feature.title}</h3>
+                    <p className="text-sm leading-relaxed text-muted-foreground">{feature.description}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </div>

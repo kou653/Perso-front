@@ -2,6 +2,8 @@ import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
+import { motion } from "framer-motion";
+
 const navItems = [
   { name: "Accueil", href: "/" },
   { name: "Modèles de Mugs", href: "/produits" },
@@ -17,7 +19,13 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-md transition-all">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
         <Link to="/" className="flex items-center gap-2.5 group">
-          <img src="/logo/FullLogo.png" alt="KRS" className="h-16 sm:h-20 w-auto object-contain -my-4 transition-transform group-hover:scale-[1.02]" />
+          <motion.img
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            src="/logo/FullLogo.png"
+            alt="KRS"
+            className="h-16 sm:h-20 w-auto object-contain -my-4"
+          />
         </Link>
 
         {/* Desktop Navigation */}
@@ -28,12 +36,19 @@ export function Navbar() {
               <Link
                 key={item.name}
                 to={item.href}
-                className={`relative px-4 py-2 text-sm font-medium transition-all duration-200 rounded-lg ${
+                className={`relative px-4 py-2 text-sm font-medium transition-colors duration-200 rounded-lg ${
                   isActive
-                    ? "text-primary font-semibold bg-primary/10"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                    ? "text-primary font-semibold"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted/40"
                 }`}
               >
+                {isActive && (
+                  <motion.span
+                    layoutId="activeNavIndicator"
+                    className="absolute inset-0 bg-primary/15 rounded-lg -z-10 border border-primary/20"
+                    transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                  />
+                )}
                 {item.name}
               </Link>
             );

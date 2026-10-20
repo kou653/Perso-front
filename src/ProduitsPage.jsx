@@ -65,11 +65,12 @@ export function ProduitsPage() {
         </div>
 
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {filteredTemplates.map(({ product, template }) => (
+          {filteredTemplates.map(({ product, template }, index) => (
             <TemplateCard
               key={`${product.id}-${template.id}`}
               product={product}
               template={template}
+              index={index}
             />
           ))}
         </div>
