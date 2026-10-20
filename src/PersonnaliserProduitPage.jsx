@@ -1,11 +1,11 @@
 import { useState, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { getProductById, getTemplateById } from './lib/products';
+import { getProductById, getTemplateById } from '@/lib/products';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { COUNTRIES, DEFAULT_COUNTRY } from "./lib/countries";
+import { COUNTRIES, DEFAULT_COUNTRY } from "@/lib/countries";
 import { 
   Loader2, 
   Check, 

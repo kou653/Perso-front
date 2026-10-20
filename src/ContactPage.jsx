@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { FieldGroup, Field, FieldLabel } from "@/components/ui/field";
-import { COUNTRIES, DEFAULT_COUNTRY } from "./lib/countries";
+import { COUNTRIES, DEFAULT_COUNTRY } from "@/lib/countries";
 
 export function ContactPage() {
   const [formData, setFormData] = useState({
