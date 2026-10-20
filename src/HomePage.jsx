@@ -11,17 +11,17 @@ const mugProduct = products.mug;
 const features = [
   {
     icon: Sliders,
-    title: "Détection Intelligente",
+    title: "Détection intelligente",
     description: "Le système analyse le modèle de mug choisi et détecte automatiquement les zones à personnaliser.",
   },
   {
     icon: Palette,
-    title: "Personnalisation Sélective",
+    title: "Personnalisation sélective",
     description: "Remplacez textes, photos et dates, ou conservez les éléments d'origine selon vos choix.",
   },
   {
     icon: Truck,
-    title: "Impression HD & Livraison",
+    title: "Impression HD & livraison",
     description: "Sublimation haute définition et expédition soignée en 3-5 jours ouvrés.",
   },
 ];
@@ -29,22 +29,22 @@ const features = [
 const featuredModels = [
   {
     id: "mug-maman-damour",
-    name: "Maman d'Amour",
+    name: "Maman d'amour",
     imageUrl: "/model/mug-maman-damour.jpg",
   },
   {
     id: "mug-calendrier-couple",
-    name: "Calendrier & Photo Couple",
+    name: "Calendrier & photo couple",
     imageUrl: "/model/mug-calendrier-couple.jpg",
   },
   {
     id: "mug-belle-mere",
-    name: "Belle-Mère & Famille",
+    name: "Belle-mère & famille",
     imageUrl: "/model/mug-belle-mere.jpg",
   },
   {
     id: "mug-monogramme-or",
-    name: "Monogramme Doré",
+    name: "Monogramme doré",
     imageUrl: "/model/mug-monogramme-or.jpg",
   },
 ];
@@ -68,7 +68,7 @@ export function HomePage() {
               transition={{ duration: 0.4, delay: 0.1 }}
               className="inline-flex items-center gap-2 rounded-full bg-primary/15 px-3.5 py-1 text-xs font-semibold text-primary mb-6 border border-primary/30"
             >
-              Personnalisation Sur-Mesure
+              Personnalisation sur-mesure
             </motion.div>
             
             <h1 className="text-balance text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground leading-tight sm:leading-tight">
@@ -124,7 +124,7 @@ export function HomePage() {
             className="text-center max-w-2xl mx-auto mb-12 space-y-2"
           >
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-foreground">
-              Nos Modèles Populaires
+              Nos modèles populaires
             </h2>
             <p className="text-pretty text-[15px] sm:text-base text-muted-foreground/90 font-medium">
               Découvrez un aperçu de nos plus beaux modèles.

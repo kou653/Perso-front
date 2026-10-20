@@ -33,7 +33,7 @@ export function ProduitsPage() {
         {/* Titre de la page */}
         <div className="mx-auto max-w-2xl text-center space-y-2 mb-8">
           <h1 className="text-balance text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground leading-tight">
-            Modèles de Mugs
+            Modèles de mugs
           </h1>
           <p className="text-pretty text-[15px] sm:text-[17px] text-muted-foreground/90 font-medium leading-relaxed">
             Choisissez un modèle parmi notre collection et remplacez les informations par les vôtres.

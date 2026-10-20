@@ -1,7 +1,7 @@
 export const products = {
   mug: {
     id: "mug",
-    name: "Mug Céramique Personnalisé",
+    name: "Mug céramique personnalisé",
     description: "Mug en céramique de haute qualité (330ml), résistant au micro-ondes et lave-vaisselle.",
     image: "/model/mug-maman-damour.jpg",
     price: "14,99 €",
@@ -14,7 +14,7 @@ export const products = {
       // ─────────────────────────────────────────────────────────────────────
       {
         id: "mug-belle-mere",
-        name: "Belle-Mère & Famille",
+        name: "Belle-mère & famille",
         description: "Tasse avec poignée en cœur, collage de 2 photos polaroid et message d'affection.",
         category: "Famille & Cadeau",
         keywords: ["tasse", "mug", "cup", "belle-mere", "belle mere", "belle-maman", "maman", "famille", "polaroid", "photo", "merci", "mother in law", "cadeau", "souvenir"],
@@ -109,7 +109,7 @@ export const products = {
       // ─────────────────────────────────────────────────────────────────────
       {
         id: "mug-calendrier-couple",
-        name: "Calendrier & Photo Couple",
+        name: "Calendrier & photo couple",
         description: "Double face : calendrier avec cœur sur la date clé et photo de couple avec mot doux.",
         category: "Amour & Couple",
         keywords: ["tasse", "mug", "cup", "calendrier", "date", "couple", "amour", "saint valentin", "saint-valentin", "mot doux", "coeur", "cœur", "anniversaire", "mariage"],
@@ -225,7 +225,7 @@ export const products = {
       // ─────────────────────────────────────────────────────────────────────
       {
         id: "mug-magique-maman",
-        name: "Best Mom & Poème",
+        name: "Best mom & poème",
         description: "Face avant avec photo et mention 'Best Mom Ever', face arrière avec un poème émouvant.",
         category: "Famille & Cadeau",
         keywords: ["tasse", "mug", "cup", "best mom", "poeme", "poème", "tasse magique", "tasse magique personnalisee", "tasse magique personnalisée", "mug magique", "magic cup", "customized magic cup", "maman", "mom", "famille", "photo", "noir"],
@@ -325,7 +325,7 @@ export const products = {
       // ─────────────────────────────────────────────────────────────────────
       {
         id: "mug-monogramme-or",
-        name: "Monogramme Doré",
+        name: "Monogramme doré",
         description: "Grande initiale dorée majuscule ornée d'un prénom calligraphié en noir.",
         category: "Monogramme & Élégant",
         keywords: ["tasse", "mug", "cup", "monogramme", "initiale", "lettre", "or", "dore", "doré", "elegant", "élégant", "chic", "prenom", "prénom", "luxe"],
@@ -392,7 +392,7 @@ export const products = {
       // ─────────────────────────────────────────────────────────────────────
       {
         id: "mug-maman-damour",
-        name: "Maman d'Amour",
+        name: "Maman d'amour",
         description: "Mug avec intérieur rouge. Face 1 : 'Maman D'AMOUR', Face 2 : Prénoms des enfants.",
         category: "Famille & Cadeau",
         keywords: ["tasse", "mug", "cup", "maman", "maman d'amour", "maman damour", "enfants", "prenoms", "prénoms", "famille", "fete des meres", "fête des mères", "rouge"],
@@ -528,7 +528,7 @@ export const products = {
       // ─────────────────────────────────────────────────────────────────────
       {
         id: "mug-photo-souvenir",
-        name: "Photo Souvenir & Date",
+        name: "Photo souvenir & date",
         description: "Photo carrée haute définition, prénoms de couple élégants et date commémorative.",
         category: "Photo & Souvenir",
         keywords: ["tasse", "mug", "cup", "photo", "souvenir", "couple", "date", "mariage", "rencontre", "cadre", "memoire", "mémoire", "noms"],
@@ -608,7 +608,7 @@ export const products = {
       // ─────────────────────────────────────────────────────────────────────
       {
         id: "mug-minimaliste-prenom",
-        name: "Prénom & Cœur",
+        name: "Prénom & cœur",
         description: "Design épuré et raffiné avec un cœur délicat et votre prénom manuscrit.",
         category: "Minimaliste & Prénom",
         keywords: ["tasse", "mug", "cup", "minimaliste", "prenom", "prénom", "coeur", "cœur", "epure", "épuré", "simple", "lettrage", "chic", "discret"],

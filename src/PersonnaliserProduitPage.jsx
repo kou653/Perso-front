@@ -712,7 +712,7 @@ export function PersonnaliserProduitPage() {
                 <CardHeader className="pb-3 flex flex-row items-center justify-between space-y-0">
                   <CardTitle className="text-base font-semibold flex items-center gap-2">
                     <Truck className="h-4 w-4 text-primary" />
-                    Informations de livraison & Contact
+                    Informations de livraison & contact
                   </CardTitle>
                   <span className="text-[11px] font-normal text-muted-foreground">
                     <span className="text-destructive font-bold">*</span> Champs obligatoires

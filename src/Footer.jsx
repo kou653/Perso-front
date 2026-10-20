@@ -33,7 +33,7 @@ export function Footer() {
               Modèles
             </Link>
             <Link to="/apropos" className="text-sm font-medium text-primary-foreground/90 transition-all hover:text-white hover:underline">
-              À Propos
+              À propos
             </Link>
             <Link to="/contact" className="text-sm font-medium text-primary-foreground/90 transition-all hover:text-white hover:underline">
               Contact

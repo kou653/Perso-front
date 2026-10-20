@@ -63,7 +63,7 @@ export function AdminHistoryPage() {
               <Lock className="h-8 w-8" />
             </div>
             <div className="text-center space-y-2">
-              <h1 className="text-2xl font-bold tracking-tight">Accès Sécurisé</h1>
+              <h1 className="text-2xl font-bold tracking-tight">Accès sécurisé</h1>
               <p className="text-sm text-muted-foreground">
                 Entrez le mot de passe administrateur pour voir l'historique des commandes.
               </p>
@@ -97,7 +97,7 @@ export function AdminHistoryPage() {
     <div className="py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Historique des Commandes</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Historique des commandes</h1>
           <p className="text-muted-foreground text-sm mt-1">
             Connecté à Google Sheets. {orders.length} commande(s) enregistrée(s).
           </p>
